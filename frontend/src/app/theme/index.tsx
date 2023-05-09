@@ -17,12 +17,5 @@ export const theme = extendTheme({
 				}
 			}
 		},
-		Input: {
-			variants: {
-				"post-editor-heading": {
-					display: "none"
-				}
-			}
-		}
 	}
 });
