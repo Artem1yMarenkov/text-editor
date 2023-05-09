@@ -1,14 +1,14 @@
 import { createEvent, createStore } from "effector";
 
-export const $header = createStore<string | null>("that's header...")
-export const $content = createStore<string | null>("");
+interface IPostContent {
+	uuid: string;
+	header: string;
+	content: string | null;
+}
 
-export const changeHeader = createEvent<string>();
-export const changeContent = createEvent<string>();
+export const changeContent = createEvent<IPostContent>();
+export const clearPost = createEvent();
 
-$header.on(changeHeader, (_, payload) => {
-	console.log(payload);
-	return payload;
-});
-
-$content.on(changeContent, (_, payload) => payload);
+export const $post = createStore<IPostContent | null>({} as IPostContent)
+	.on(changeContent, (_, payload) => payload)
+	.on(clearPost, () => null);
