@@ -1,15 +1,27 @@
-import { Button, Flex, Text } from "@chakra-ui/react";
+import { Avatar, AvatarBadge, AvatarGroup } from '@chakra-ui/react'
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
 
 export const Sidebar = () => {
 	return (
 		<Flex 
 			gap="10px" 
 			flexDirection="column" 
-			padding="10px 20px" 
-			sx={{ background: "#fffcfc", height: "100vh" }}
+			sx={{ 
+				background: "#fafafa", 
+				height: "100%", 
+				borderRadius: "0 10px 10px 0", 
+				position: "fixed", 
+				padding: "12px"
+			}}
 		>
-			<Text>Text Editor</Text>
-			<Button variant="sidebar">&#62; Settings</Button>
+			<Button variant="sidebar" height="45px" padding="8px">
+				<Flex gap="12px" alignItems="center">
+					<Avatar name="t" size="sm" borderRadius="8px" />
+					<Box>
+						<Text mb="1px" fontSize="14px">Somebody's Text Editor</Text>
+					</Box>
+				</Flex>
+			</Button>
 		</Flex>
 	);
 }

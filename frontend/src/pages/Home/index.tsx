@@ -8,7 +8,7 @@ export const HomePage = () => {
 			<GridItem>
 				<Sidebar />
 			</GridItem>
-			<GridItem padding="20px">
+			<GridItem padding="20px" width="70vw" margin="auto">
 				<PostEditorWidget />
 			</GridItem>
 		</Grid>
