@@ -1,4 +1,4 @@
-import { Avatar, AvatarBadge, AvatarGroup } from '@chakra-ui/react'
+import { Avatar } from '@chakra-ui/react'
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 
 export const Sidebar = () => {
