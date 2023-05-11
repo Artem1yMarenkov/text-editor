@@ -25,7 +25,7 @@ docker compose up # or docker-compose up
 
 # Правила работы с гитом
 ## Commit flow
-https://www.notion.so/Git-Flow-bce1e8a417114a11aee0a8d11feb0ddf?pvs=4
+[Гайд](https://sphenoid-editorial-afa.notion.site/Git-Flow-bce1e8a417114a11aee0a8d11feb0ddf)
 ## Алгоритм взаимодействия с репозиторием
 1. На странице issue в linear копируете имя ветки, чекаутитесь на неё и работаете в ней, создаём её всегда из main ветки!
 ```
