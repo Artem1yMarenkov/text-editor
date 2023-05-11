@@ -11,6 +11,17 @@ npm install
 ```
 npm run dev
 ```
+# Запуск бекенда
+Перед началом работы необходимо установить [Docker]("https://www.docker.com/products/docker-desktop/")
+```
+cd backend
+```
+После установки необходимо зайти в папку backend и запустить docker compose up (или docker-compose up, если первая команда не сработает)
+```
+cd backend
+docker compose up # or docker-compose up
+```
+Затем можно переходить на http://localhost. Там будет крутиться REST API.
 
 # Правила работы с гитом
 ## Commit flow

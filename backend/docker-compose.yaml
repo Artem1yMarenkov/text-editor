@@ -1,0 +1,33 @@
+version: "3.9"
+services:
+  redis:
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+  mongo:
+    image: "mongo:latest"
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: FyONTK5IbKJP
+  nodejs:
+    build: .
+    ports:
+      - "5500:5500"
+    volumes:
+      - .:/usr/src/app
+    links:
+      - "mongo"
+  nginx:
+    depends_on:
+      - "nodejs"
+      - "mongo"
+      - "redis"
+    image: nginx:latest
+    ports:
+    - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./static:/var/www/static
+    restart: always
