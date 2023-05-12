@@ -1,6 +1,8 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 import { createUser, loginUser } from "./user.service";
 import generatePassword from "generate-password";
+import { renderRegisterMessage } from "../../utils/mail/templates/auth/Register";
+import { sendEmail } from "../../utils/mail";
 
 export const registerUserHandler = async (request: FastifyRequest<{ Body: { login: string, email: string } }>, reply: FastifyReply) => {
 	const { login, email } = request.body;
@@ -8,6 +10,15 @@ export const registerUserHandler = async (request: FastifyRequest<{ Body: { logi
 
 	try {
 		await createUser(login, email, password);
+
+		const computedMessage = renderRegisterMessage(login, email, password);
+
+		await sendEmail({
+			to: email,
+			subject: "TextEditor | Уведомление о регистрации на сервисе TextEditor",
+			text: "",
+			html: computedMessage
+		});
 		
 		return reply.code(200).send({
 			error: false,

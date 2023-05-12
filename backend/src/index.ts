@@ -1,21 +1,26 @@
 import cors from '@fastify/cors'
 import fastify from "fastify";
 import { dbInstance } from './database';
+import { userRouter } from './modules/user/user.route';
+import { sendEmail } from './utils/mail';
+import { renderRegisterMessage } from './utils/mail/templates/auth/Register';
 
-const instance = fastify({
+const app = fastify({
 	logger: true
 });
 
-instance.register(cors, {
+app.register(cors, {
 	origin: (_, callback) => {
 		callback(null, true);
 	}
 });
 
-instance.addHook("onRequest", (req, res, done) => {
+app.register(userRouter, { prefix: "/user" });
+
+app.addHook("onRequest", (req, res, done) => {
 	req.headers['Content-Type'] = 'application/json';
 	done();
-})
+});
 
 async function bootstrap() {
 	const config = {
@@ -25,7 +30,7 @@ async function bootstrap() {
 	
 	try {
 		console.log(dbInstance);
-		instance.listen(config);
+		app.listen(config);
 	} catch {
 		console.error(`Failed to listen port ${config.port}`);
 		process.exit(1);
