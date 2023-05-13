@@ -7,7 +7,7 @@ on:
     branches: [main]
 defaults:
   run:
-    working-directory: ./text-editor/frontend
+    working-directory: /home/runner/work/text-editor/frontend
 jobs:
   init:
     runs-on: ubuntu-latest
@@ -15,12 +15,6 @@ jobs:
       matrix:
         node-version: [19.x]
     steps:
-      - run: echo " дагестанские москвичи продакшн "
-      - run: echo " в ролях "
-      - run: echo " самый богатый человек кирова "
-      - run: echo " артем ресторанович "
-      - run: echo " алексей симпович "
-      - run: echo " дмитрий шузыотдиси "
       - uses: actions/checkout@v3
       - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
