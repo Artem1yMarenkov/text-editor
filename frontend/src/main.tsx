@@ -7,18 +7,12 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "@/shared/assets/scss/index.scss";
 import ErrorPage from "./pages/Error";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    errorElement: <ErrorPage />,
-  },
-]);
+
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
-    <ChakraProvider theme={theme}>
-      <RouterProvider router={router} />
-    </ChakraProvider>
-  </React.StrictMode>
+	<React.StrictMode>
+		<ChakraProvider theme={theme}>
+			<App />
+		</ChakraProvider>
+	</React.StrictMode>
 );
