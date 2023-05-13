@@ -1,37 +1,56 @@
 import { FastifyPluginCallback } from "fastify";
 import { loginUserHandler, logoutUserHandler, registerUserHandler } from "./user.controller";
+import { LoginUserRequestType, RegisterUserRequestType } from "./types";
+import { DefaultResponse } from "../../utils/response";
 
 export const userRouter: FastifyPluginCallback = (app, opts, done) => {
-	app.post(
-		"/register", 
-		{
-			schema: {
-				querystring: {
-					login: { type: "string" },
-					email: { type: "string" }
-				}
-			}
-		}, 
-		registerUserHandler
-	);
+	app.post<RegisterUserRequestType>("/register", {
+		handler: registerUserHandler,
+		schema: {
+			description: "Регистрация пользователя",
+			body: {
+				type: "object",
+				required: ["email", "login"],
+				properties: {
+					email: { type: "string" },
+					login: { type: "string" }
+				},
+			},
+			response: {
+				200: DefaultResponse({ statusCode: 200, data: "User registration successful completed", error: null }),
+				400: DefaultResponse({ statusCode: 400, data: null, error: "User registration failed" }),
+				500: DefaultResponse({ statusCode: 500, data: null, error: "Server Error" }),
+			},
+		}
+	});
 
-	app.post(
-		"/login",
-		{
-			schema: {
-				querystring: {
+	app.post<LoginUserRequestType>("/login", {
+		handler: loginUserHandler,
+		schema: {
+			description: "Авторизация пользователя по паролю и почте",
+			body: {
+				type: "object",
+				required: ["email", "password"],
+				properties: {
 					email: { type: "string" },
 					password: { type: "string" }
 				}
+			},
+			response: {
+				200: {
+					required: ["data", "statusCode", "error"],
+					properties: { data: {}, statusCode: {}, error: {} }
+				},
+				400: {
+					required: ["data", "statusCode", "error"],
+					properties: { data: {}, statusCode: {}, error: {} }
+				},
+				500: DefaultResponse({ statusCode: 500, data: null, error: "Server Error" })
 			}
-		},
-		loginUserHandler
-	);
+		}
+	});
 
-	app.post(
-		"/logout",
-		logoutUserHandler
-	)
+	app.post("/logout", logoutUserHandler)
 
 	done();
 };

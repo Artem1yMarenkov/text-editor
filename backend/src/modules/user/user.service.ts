@@ -1,27 +1,28 @@
+import { IUser } from "./types";
 import { User } from "./user.schema";
 
-export const createUser = async (login: string, email: string, password: string): Promise<void> => {
+export const createUser = async (login: string, email: string, password: string): Promise<IUser | null> => {
 	try {
 		const user = new User({ email, login, password });
-
-		await user.save();
+		return await user.save();
 	} catch (e) {
 		console.error(e);
+		return null;
 	};
 };
 
-export const loginUser = async (email: string, password: string): Promise<boolean> => {
+export const loginUser = async (email: string, password: string): Promise<IUser | null> => {
 	try {
-		const user = User.findOne({ email, password });
+		const user = await User.findOne({ email, password });
 
 		if (user == null) {
-			throw new Error();
+			throw new Error("Invalid email or password");
 		}
 
-		return true;
+		return user;
 	} catch (e) {
 		console.error(e);
 
-		return false;
+		return null;
 	}
 };
