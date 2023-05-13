@@ -5,15 +5,15 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+defaults:
+  run:
+    working-directory: frontend
 jobs:
   init:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [19.x]
-    defaults:
-      run:
-        working-directory: frontend
     steps:
       - run: echo " дагестанские москвичи продакшн "
       - run: echo " в ролях "
