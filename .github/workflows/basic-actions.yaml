@@ -7,7 +7,7 @@ on:
     branches: [main]
 defaults:
   run:
-    working-directory: /frontend
+    working-directory: .frontend
 jobs:
   init:
     runs-on: ubuntu-latest
