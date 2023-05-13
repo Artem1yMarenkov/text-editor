@@ -18,8 +18,8 @@ jobs:
       - run: echo " артем ресторанович "
       - run: echo " алексей симпович "
       - run: echo " дмитрий шузыотдиси "
-        working-directory: ./frontend
       - uses: actions/checkout@v3
+        working-directory: ./frontend
       - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
