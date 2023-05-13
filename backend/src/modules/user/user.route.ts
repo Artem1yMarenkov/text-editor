@@ -39,11 +39,36 @@ export const userRouter: FastifyPluginCallback = (app, opts, done) => {
 			response: {
 				200: {
 					required: ["data", "statusCode", "error"],
-					properties: { data: {}, statusCode: {}, error: {} }
+					properties: { 
+						data: { 
+							type: "object", 
+							properties: {
+								token: {
+									type: "string"
+								}
+							}
+						}, 
+						statusCode: {
+							default: 200
+						}, 
+						error: {
+							default: null
+						} 
+					}
 				},
 				400: {
 					required: ["data", "statusCode", "error"],
-					properties: { data: {}, statusCode: {}, error: {} }
+					properties: { 
+						data: {
+							default: null
+						}, 
+						statusCode: {
+							default: 400
+						}, 
+						error: {
+							type: "string"
+						} 
+					}
 				},
 				500: DefaultResponse({ statusCode: 500, data: null, error: "Server Error" })
 			}
