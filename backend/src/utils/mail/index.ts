@@ -1,4 +1,7 @@
 import nodemailer from "nodemailer";
+import * as dotenv from 'dotenv'
+
+dotenv.config();
 
 type MessageOptionsType = {
 	text: string
@@ -13,13 +16,13 @@ export const sendEmail = async (message: MessageOptionsType) => {
 			host: 'smtp.mail.ru',
 	    	port: 465,
 			auth: {
-				user: 'texteditor.info@mail.ru',
-				pass: 'qW9iM94nJi57cEGfMWkK',
+				user: process.env.EMAIL_USER,
+				pass: process.env.EMAIL_PASS,
 			}
 		});
 
 		return await transporter.sendMail({
-			from: `"TextEditor Info" <texteditor.info@mail.ru>`,
+			from: `"TextEditor Info" <${process.env.EMAIL_USER}>`,
 			...message,
 		});
 	} catch (e) {

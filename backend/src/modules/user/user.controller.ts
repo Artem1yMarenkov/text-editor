@@ -16,7 +16,7 @@ export const registerUserHandler = async (
 	const user = await createUser(login, email, password);
 
 	if (user == null) {
-		return reply.code(400);
+		return reply.code(400).send({});
 	}
 
 	const computedMessage = renderRegisterMessage(login, email, password);
@@ -28,7 +28,7 @@ export const registerUserHandler = async (
 		html: computedMessage
 	});
 	
-	return reply.code(200);
+	return reply.code(200).send({});
 };
 
 export const loginUserHandler = async (
