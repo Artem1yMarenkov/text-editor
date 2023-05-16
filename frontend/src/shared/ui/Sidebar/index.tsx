@@ -33,6 +33,15 @@ export const Sidebar = () => {
           {linkName}
         </Button>
       ))}
+      <Button variant="sidebar" height="45px" padding="8px" top="73.89%">
+        <Flex gap="12px" alignItems="center">
+          <Box>
+            <Text mb="1px" fontSize="14px">
+              Настройки
+            </Text>
+          </Box>
+        </Flex>
+      </Button>
     </Flex>
   );
 };
