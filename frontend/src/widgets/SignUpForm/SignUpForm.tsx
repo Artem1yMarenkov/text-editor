@@ -4,15 +4,12 @@ import {
   Checkbox,
   Container,
   Heading,
-  IconButton,
   Input,
   InputGroup,
-  InputRightElement,
   Stack,
   Text,
 } from "@chakra-ui/react";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { api } from "../../shared/api";
 
 const initialValues = {
