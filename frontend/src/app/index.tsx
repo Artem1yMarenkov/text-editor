@@ -1,10 +1,10 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { HomePage } from "../pages/Home";
 import ErrorPage from "../pages/Error";
-import SignInForm from "../widgets/SIgnInForm/SignInForm";
-import SignUpForm from "../widgets/SignUpForm/SignUpForm";
 import { theme } from "./theme";
 import { ChakraProvider } from "@chakra-ui/react";
+import SignInPage from "../pages/SignIn";
+import SignUpPage from "../pages/SignUp";
 
 const router = createBrowserRouter([
 	{
@@ -14,11 +14,11 @@ const router = createBrowserRouter([
 	},
 	{
 		path: 'login',
-		element: <SignInForm />
+		element: <SignInPage />
 	},
 	{
 		path: 'register',
-		element: <SignUpForm />
+		element: <SignUpPage />
 	}
 ]);
 function App() {
@@ -26,7 +26,6 @@ function App() {
 		<ChakraProvider theme={theme} >
 			<RouterProvider router={router} />
 		</ChakraProvider >
-
 	);
 }
 
