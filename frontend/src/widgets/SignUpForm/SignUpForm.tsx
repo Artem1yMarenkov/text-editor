@@ -11,53 +11,74 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { api } from "../../shared/api";
+
+const initialValues = {
+  email: "",
+  login: "",
+};
 
 const SignUpForm = () => {
-  const [show, setShow] = useState(false);
-  const handleshowChange = (): void => setShow(!show);
+  const [values, setValues] = useState(initialValues);
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      const response = await api.post("/user/register", values);
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setValues({
+      ...values,
+      [name]: value,
+    });
+  };
   return (
     <Box>
       <Container maxW={"2xl"} sx={{ p: "30px" }} border={"1px solid #000"}>
         <Stack spacing={"1rem "}>
-          <Heading as={"h1"} size={"lg"}>
-            Регистрация
-          </Heading>
-          <Heading as={"h1"} size={"sm"}>
-            Логин и пароль
-          </Heading>
-          <Stack sx={{ mt: "30px" }}>
-            <InputGroup size={"lg"} sx={{ gap: "5" }}>
-              <Input
-                size={"lg"}
-                type="email"
-                placeholder={"Email"}
-                variant={"outline"}
-                isRequired={true}
-              />
-              <Input
-                type={show ? "text" : "password"}
-                placeholder={"Пароль"}
-                variant={"outline"}
-                isRequired={true}
-              />
-              <InputRightElement>
-                <IconButton
-                  background={"inherit"}
-                  icon={show ? <ViewOffIcon /> : <ViewIcon />}
-                  onClick={handleshowChange}
-                  aria-label={"Search database"}
-                ></IconButton>
-              </InputRightElement>
-            </InputGroup>
-            <Checkbox defaultChecked>
-              <Text fontSize={"md"}>Я согласен c условиями оферты.</Text>
-            </Checkbox>
-          </Stack>
-          <Button colorScheme={"orange"} size={"lg"}>
-            Войти
-          </Button>
+          <form onSubmit={handleSubmit}>
+            <Heading as={"h1"} size={"lg"}>
+              Регистрация
+            </Heading>
+            <Heading as={"h1"} size={"sm"}>
+              Логин и пароль
+            </Heading>
+            <Stack sx={{ mt: "30px" }}>
+              <InputGroup size={"lg"} sx={{ gap: "5" }}>
+                <Input
+                  name="email"
+                  size={"lg"}
+                  type="email"
+                  isRequired={true}
+                  variant={"outline"}
+                  placeholder={"Email"}
+                  value={values.email}
+                  onChange={handleInputChange}
+                />
+                <Input
+                  name="login"
+                  type="text"
+                  placeholder={"Пароль"}
+                  variant={"outline"}
+                  isRequired={true}
+                  value={values.login}
+                  onChange={handleInputChange}
+                />
+              </InputGroup>
+              <Checkbox defaultChecked>
+                <Text fontSize={"md"}>Я согласен c условиями оферты.</Text>
+              </Checkbox>
+            </Stack>
+            <Button type="submit" colorScheme={"orange"} size={"lg"}>
+              Войти
+            </Button>
+          </form>
         </Stack>
       </Container>
     </Box>
