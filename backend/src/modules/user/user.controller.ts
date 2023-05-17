@@ -16,7 +16,11 @@ export const registerUserHandler = async (
 	const user = await createUser(login, email, password);
 
 	if (user == null) {
-		return reply.code(400).send({});
+		return reply.code(400).send({
+			statusCode: 400,
+			error: 'User already exists',
+			data: null,
+		});
 	}
 
 	const computedMessage = renderRegisterMessage(login, email, password);
