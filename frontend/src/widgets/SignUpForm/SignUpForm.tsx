@@ -9,77 +9,84 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { ChangeEvent, FormEvent, useState } from "react";
-import { api } from "../../shared/api";
-
-const initialValues = {
-  email: "",
-  login: "",
-};
+import { useForm } from "react-hook-form";
+import { IFormState } from "./types";
+import { $registerUserPending, $registerUserResponseState, registerUserFx, setRegisterUserResponseState } from "./store";
+import { useStore } from "effector-react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
 
 const SignUpForm = () => {
-  const [values, setValues] = useState(initialValues);
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    try {
-      const response = await api.post("/user/register", values);
-      console.log(response);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setValues({
-      ...values,
-      [name]: value,
-    });
-  };
-  return (
-    <Box>
-      <Container maxW={"2xl"} sx={{ p: "30px" }} border={"1px solid #000"}>
-        <Stack spacing={"1rem "}>
-          <form onSubmit={handleSubmit}>
-            <Heading as={"h1"} size={"lg"}>
-              Регистрация
-            </Heading>
-            <Heading as={"h1"} size={"sm"}>
-              Логин и пароль
-            </Heading>
-            <Stack sx={{ mt: "30px" }}>
-              <InputGroup size={"lg"} sx={{ gap: "5" }}>
-                <Input
-                  name="email"
-                  size={"lg"}
-                  type="email"
-                  isRequired={true}
-                  variant={"outline"}
-                  placeholder={"Email"}
-                  value={values.email}
-                  onChange={handleInputChange}
-                />
-                <Input
-                  name="login"
-                  type="text"
-                  placeholder={"Пароль"}
-                  variant={"outline"}
-                  isRequired={true}
-                  value={values.login}
-                  onChange={handleInputChange}
-                />
-              </InputGroup>
-              <Checkbox defaultChecked>
-                <Text fontSize={"md"}>Я согласен c условиями оферты.</Text>
-              </Checkbox>
-            </Stack>
-            <Button type="submit" colorScheme={"orange"} size={"lg"}>
-              Войти
-            </Button>
-          </form>
-        </Stack>
-      </Container>
-    </Box>
-  );
+	const registerUserPending = useStore($registerUserPending);
+	const registerUserResponseState = useStore($registerUserResponseState);
+	
+	const navigate = useNavigate();
+	const { handleSubmit, register } = useForm<IFormState>({
+		defaultValues: {
+			email: null,
+			login: null
+		}
+	});
+
+	useEffect(() => {
+		if (registerUserResponseState == 200) {
+			navigate("/login");
+		}
+
+		setRegisterUserResponseState(null);
+	}, [registerUserResponseState, navigate]);
+
+	return (
+		<Box>
+			<Container
+				sx={{ 
+					p: "30px", 
+					mt: "40px", 
+					boxShadow: "0 0 30px #cdcdcd", 
+					borderRadius: "10px",
+					maxW: "2xl"
+				}}
+			>
+				<form onSubmit={handleSubmit(registerUserFx)}>
+					<Stack spacing="1rem ">
+						<Heading as="h1" size="lg">Регистрация</Heading>
+						<Heading as="h1" size="sm">Адрес эл. почты и логин</Heading>
+						<Stack sx={{ mt: "30px" }}>
+							<InputGroup size="lg" sx={{ gap: "5" }}>
+								<Input
+									size="lg"
+									type="email"
+									placeholder="Адрес эл. почты"
+									variant="outline"
+									isRequired
+									{...register("email", { required: true })}
+								/>
+								<Input
+									type="text"
+									placeholder="Логин"
+									variant="outline"
+									isRequired
+									{...register("login", { required: true })}
+								/>
+							</InputGroup>
+							<Checkbox defaultChecked isRequired>
+								<Text fontSize="md">Я согласен c условиями оферты.</Text>
+							</Checkbox>
+						</Stack>
+						<Button 
+							type="submit" 
+							colorScheme={"orange"}
+							size="lg" 
+							isDisabled={registerUserPending} 
+							isLoading={registerUserPending}
+						>
+							Зарегистрироваться
+						</Button>
+					</Stack>
+				</form>
+			</Container>
+		</Box>
+	);
 };
 
 export default SignUpForm;
