@@ -17,8 +17,4 @@ $registerStatus.watch((state) => {
 			setRegisterStatus(null);
 		}
 	});
-<<<<<<< HEAD
 })
-=======
-})
->>>>>>> 84c617c (refactor: change auth structure)
