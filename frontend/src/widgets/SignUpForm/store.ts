@@ -1,4 +1,4 @@
-import { createEffect, createEvent, createStore, restore } from "effector";
+import { createEffect, createEvent, restore } from "effector";
 import { IFormState } from "./types";
 import { api } from "../../shared/api";
 

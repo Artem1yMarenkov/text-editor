@@ -29,7 +29,7 @@ const SignUpForm = () => {
 	});
 
 	useEffect(() => {
-		if (registerUserResponseState == 200) {
+		if (registerUserResponseState === 200) {
 			navigate("/login");
 		}
 
