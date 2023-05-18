@@ -2,6 +2,7 @@ import axios from "axios";
 import { setLoading } from "./loading";
 import { setIsLogin } from "../../entities/Auth";
 import { setUserLoginResponseStatus } from "../../widgets/SIgnInForm/store";
+import { userLogoutFx } from "../../features/logout";
 
 export const api = axios.create({
   baseURL: "http://localhost/",
@@ -33,9 +34,7 @@ api.interceptors.response.use(
   },
   (error) => {
     if (error.response.status === 401) {
-      localStorage.removeItem("token");
-      setIsLogin(false);
-      setUserLoginResponseStatus(401);
+      userLogoutFx()
     }
     setLoading(false);
 

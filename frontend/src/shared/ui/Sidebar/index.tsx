@@ -1,14 +1,11 @@
 import { Avatar } from "@chakra-ui/react";
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { Heading } from "@chakra-ui/react";
-import { setIsLogin } from "../../../entities/Auth";
-import { setUserLoginResponseStatus } from "../../../widgets/SIgnInForm/store";
+import { userLogoutFx } from "../../../features/logout";
 const links = ["Купить собаку", "Помыть молока"];
 export const Sidebar = () => {
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    setIsLogin(false);
-    setUserLoginResponseStatus(400);
+    userLogoutFx();
   };
   return (
     <Flex
