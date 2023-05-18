@@ -14,14 +14,6 @@ const router = createBrowserRouter([
     element: <HomePage />,
     errorElement: <ErrorPage />,
   },
-  {
-    path: "login",
-    element: <SignInPage />,
-  },
-  {
-    path: "register",
-    element: <SignUpPage />,
-  },
 ]);
 
 const protectedRouter = createBrowserRouter([
