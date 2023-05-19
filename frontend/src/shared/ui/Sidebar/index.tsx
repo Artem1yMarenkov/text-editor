@@ -1,12 +1,16 @@
 import { Avatar } from "@chakra-ui/react";
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { Heading } from "@chakra-ui/react";
-import { userLogoutFx } from "../../../features/logout";
+import { logoutUserFx } from "../../../entities/User";
+
 const links = ["Купить собаку", "Помыть молока"];
+
 export const Sidebar = () => {
+  
   const handleLogout = () => {
-    userLogoutFx();
+    logoutUserFx();
   };
+
   return (
     <Flex
       gap="10px"

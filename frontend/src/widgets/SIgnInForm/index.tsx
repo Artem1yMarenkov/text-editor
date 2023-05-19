@@ -15,27 +15,16 @@ import {
   Container,
 } from "@chakra-ui/react";
 import { useStore } from "effector-react";
-import { useEffect, useState } from "react";
-import {
-  $userLoginPending,
-  $userLoginResponseStatus,
-  fetchUserLoginFx,
-} from "./store";
-import { useNavigate } from "react-router";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { IFormState } from "./types";
-import { $isLogin } from "../../entities/Auth";
+import { ILoginFormState } from "../../entities/User/types";
+import { loginUserFx } from "../../entities/User";
 
 const SignInForm = () => {
+  const loginPenging = useStore(loginUserFx.pending);
   const [show, setShow] = useState(false);
 
-  const isLogin = useStore($isLogin);
-  const userLoginPending = useStore($userLoginPending);
-  const userLoginResponseStatus = useStore($userLoginResponseStatus);
-
-  const navigate = useNavigate();
-
-  const { handleSubmit, register } = useForm<IFormState>({
+  const { handleSubmit, register } = useForm<ILoginFormState>({
     defaultValues: {
       email: null,
       password: null,
@@ -43,12 +32,6 @@ const SignInForm = () => {
   });
 
   const handleshowChange = (): void => setShow(!show);
-
-  useEffect(() => {
-    if (userLoginResponseStatus === 200 || isLogin) {
-      navigate("/");
-    }
-  }, [userLoginResponseStatus, navigate, isLogin]);
 
   return (
     <Box>
@@ -68,7 +51,7 @@ const SignInForm = () => {
             </Heading>
           </Stack>
         </VStack>
-        <form onSubmit={handleSubmit(fetchUserLoginFx)}>
+        <form onSubmit={handleSubmit(loginUserFx)}>
           <Stack spacing={"1rem"}>
             <Input
               size={"lg"}
@@ -97,8 +80,8 @@ const SignInForm = () => {
             </InputGroup>
             <Button
               type="submit"
-              isDisabled={userLoginPending}
-              isLoading={userLoginPending}
+              isDisabled={loginPenging}
+              isLoading={loginPenging}
               colorScheme={"orange"}
               size={"lg"}
             >

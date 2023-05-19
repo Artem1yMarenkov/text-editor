@@ -1,4 +1,4 @@
-import SignUpForm from '../../widgets/SignUpForm/SignUpForm';
+import SignUpForm from '../../widgets/SignUpForm';
 
 const SignUpPage = () => {
 	return (

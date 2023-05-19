@@ -6,7 +6,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import SignInPage from "../pages/SignIn";
 import SignUpPage from "../pages/SignUp";
 import { useStore } from "effector-react";
-import { $isLogin } from "../entities/Auth";
+import { $isLogin } from "./auth";
 
 const router = createBrowserRouter([
   {
@@ -18,7 +18,7 @@ const router = createBrowserRouter([
 
 const protectedRouter = createBrowserRouter([
   {
-    path: "/",
+    path: "/login",
     element: <SignInPage />,
     errorElement: <ErrorPage />,
   },
