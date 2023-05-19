@@ -5,6 +5,7 @@ import SignInForm from "../widgets/SIgnInForm/SignInForm";
 import SignUpForm from "../widgets/SignUpForm/SignUpForm";
 import { theme } from "./theme";
 import { ChakraProvider } from "@chakra-ui/react";
+import { Notifications } from "../widgets/Notifications";
 
 const router = createBrowserRouter([
 	{
@@ -25,6 +26,7 @@ function App() {
 	return (
 		<ChakraProvider theme={theme} >
 			<RouterProvider router={router} />
+			<Notifications />
 		</ChakraProvider >
 
 	);
