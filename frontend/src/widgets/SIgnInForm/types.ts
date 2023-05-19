@@ -7,7 +7,7 @@ interface ILoginData {
   data: {
     data: {
       token: string;
-    };
+    } | null;
     statusCode: number;
     error: string | null;
   };
