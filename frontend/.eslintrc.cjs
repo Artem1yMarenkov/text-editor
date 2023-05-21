@@ -11,7 +11,7 @@ module.exports = {
   plugins: ["react-refresh", "prettier"],
   rules: {
     "react-refresh/only-export-components": "warn",
-    "prettier/prettier": ["error", { endOfLine: "auto" }],
+    // "prettier/prettier": ["error", { endOfLine: "auto" }],
     "react/prop-types": 0,
   },
 };
