@@ -1,17 +1,20 @@
-import { createEffect } from "effector";
+import { createDomain } from "effector";
 import { IRegisterFormState, ILoginFormState } from "./types";
 import { api } from "../../shared/api";
+import { AxiosResponse } from "axios";
 
-export const registerUserFx = createEffect(async (formData: IRegisterFormState) => {
+export const userDomain = createDomain();
+
+export const registerUserFx = userDomain.createEffect(async (formData: IRegisterFormState) => {
 	const response = await api.post("/user/register", formData);
 	return response;
 });
 
-export const loginUserFx = createEffect(async (formData: ILoginFormState) => {
-    const response = await api.post("/user/login", formData);
-    return response;
+export const loginUserFx = userDomain.createEffect(async (formData: ILoginFormState) => {
+	const response: AxiosResponse<{data: { token: string }}> = await api.post("/user/login", formData);
+	return response;
 });
 
-export const logoutUserFx = createEffect(() => {
-	localStorage.removeItem("token");
-})
+export const logoutUserFx = userDomain.createEffect(() => {
+	return true;
+});

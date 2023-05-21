@@ -13,15 +13,29 @@ import { useForm } from "react-hook-form";
 import { useStore } from "effector-react";
 import { registerUserFx } from "../../entities/User";
 import { IRegisterFormState } from "../../entities/User/types";
+import { $registerStatus } from "./store";
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
+
 
 const SignUpForm = () => {
-	const registerPending = useStore(registerUserFx.pending);
 	const { handleSubmit, register } = useForm<IRegisterFormState>({
 		defaultValues: {
 			email: null,
 			login: null
 		}
 	});
+	
+	const registerStatus = useStore($registerStatus);
+	const registerPending = useStore(registerUserFx.pending);
+
+	const navigate = useNavigate();
+	
+	useEffect(() => {
+		if (registerStatus == 200) {
+			navigate("/");
+		}
+	}, [registerStatus, navigate])
 
 	return (
 		<Box>

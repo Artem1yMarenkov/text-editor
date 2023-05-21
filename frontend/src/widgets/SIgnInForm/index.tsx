@@ -15,14 +15,19 @@ import {
   Container,
 } from "@chakra-ui/react";
 import { useStore } from "effector-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { ILoginFormState } from "../../entities/User/types";
 import { loginUserFx } from "../../entities/User";
+import { useNavigate } from "react-router";
+import { $isLogin } from "../../app/auth";
 
 const SignInForm = () => {
   const loginPenging = useStore(loginUserFx.pending);
+  const isLogin = useStore($isLogin);
   const [show, setShow] = useState(false);
+
+  const navigate = useNavigate();
 
   const { handleSubmit, register } = useForm<ILoginFormState>({
     defaultValues: {
@@ -32,6 +37,12 @@ const SignInForm = () => {
   });
 
   const handleshowChange = (): void => setShow(!show);
+
+  useEffect(() => {
+    if (isLogin == true) {
+      navigate("/");
+    }
+  }, [isLogin, navigate]);
 
   return (
     <Box>
