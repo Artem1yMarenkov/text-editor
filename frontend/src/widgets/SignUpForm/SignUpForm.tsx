@@ -10,9 +10,7 @@ import {
   InputRightElement,
   Stack,
   Text,
-  VStack,
 } from "@chakra-ui/react";
-import React from "react";
 import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
