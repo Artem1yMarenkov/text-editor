@@ -1,4 +1,4 @@
-import SignInForm from '../../widgets/SIgnInForm';
+import SignInForm from "../../widgets/SignInFormWidget"
 
 const SignInPage = () => {
 	return (
