@@ -10,31 +10,32 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { IFormState } from "./types";
-import { $registerUserPending, $registerUserResponseState, registerUserFx, setRegisterUserResponseState } from "./store";
 import { useStore } from "effector-react";
+import { registerUserFx } from "../../entities/User";
+import { IRegisterFormState } from "../../entities/User/types";
+import { $registerStatus } from "./store";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 
+
 const SignUpForm = () => {
-	const registerUserPending = useStore($registerUserPending);
-	const registerUserResponseState = useStore($registerUserResponseState);
-	
-	const navigate = useNavigate();
-	const { handleSubmit, register } = useForm<IFormState>({
+	const { handleSubmit, register } = useForm<IRegisterFormState>({
 		defaultValues: {
 			email: null,
 			login: null
 		}
 	});
+	
+	const registerStatus = useStore($registerStatus);
+	const registerPending = useStore(registerUserFx.pending);
 
+	const navigate = useNavigate();
+	
 	useEffect(() => {
-		if (registerUserResponseState === 200) {
-			navigate("/login");
+		if (registerStatus == 200) {
+			navigate("/");
 		}
-
-		setRegisterUserResponseState(null);
-	}, [registerUserResponseState, navigate]);
+	}, [registerStatus, navigate])
 
 	return (
 		<Box>
@@ -77,8 +78,8 @@ const SignUpForm = () => {
 							type="submit" 
 							colorScheme={"orange"}
 							size="lg" 
-							isDisabled={registerUserPending} 
-							isLoading={registerUserPending}
+							isDisabled={registerPending} 
+							isLoading={registerPending}
 						>
 							Зарегистрироваться
 						</Button>

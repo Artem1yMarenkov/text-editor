@@ -16,26 +16,20 @@ import {
 } from "@chakra-ui/react";
 import { useStore } from "effector-react";
 import { useEffect, useState } from "react";
-import {
-  $userLoginPending,
-  $userLoginResponseStatus,
-  fetchUserLoginFx,
-} from "./store";
-import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
-import { IFormState } from "./types";
-import { $isLogin } from "../../entities/Auth";
+import { ILoginFormState } from "../../entities/User/types";
+import { loginUserFx } from "../../entities/User";
+import { useNavigate } from "react-router";
+import { $isLogin } from "../../app/auth";
 
 const SignInForm = () => {
-  const [show, setShow] = useState(false);
-
+  const loginPenging = useStore(loginUserFx.pending);
   const isLogin = useStore($isLogin);
-  const userLoginPending = useStore($userLoginPending);
-  const userLoginResponseStatus = useStore($userLoginResponseStatus);
+  const [show, setShow] = useState(false);
 
   const navigate = useNavigate();
 
-  const { handleSubmit, register } = useForm<IFormState>({
+  const { handleSubmit, register } = useForm<ILoginFormState>({
     defaultValues: {
       email: null,
       password: null,
@@ -45,10 +39,10 @@ const SignInForm = () => {
   const handleshowChange = (): void => setShow(!show);
 
   useEffect(() => {
-    if (userLoginResponseStatus === 200 || isLogin) {
+    if (isLogin == true) {
       navigate("/");
     }
-  }, [userLoginResponseStatus, navigate, isLogin]);
+  }, [isLogin, navigate]);
 
   return (
     <Box>
@@ -68,7 +62,7 @@ const SignInForm = () => {
             </Heading>
           </Stack>
         </VStack>
-        <form onSubmit={handleSubmit(fetchUserLoginFx)}>
+        <form onSubmit={handleSubmit(loginUserFx)}>
           <Stack spacing={"1rem"}>
             <Input
               size={"lg"}
@@ -97,8 +91,8 @@ const SignInForm = () => {
             </InputGroup>
             <Button
               type="submit"
-              isDisabled={userLoginPending}
-              isLoading={userLoginPending}
+              isDisabled={loginPenging}
+              isLoading={loginPenging}
               colorScheme={"orange"}
               size={"lg"}
             >
