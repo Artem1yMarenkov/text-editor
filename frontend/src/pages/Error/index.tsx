@@ -16,7 +16,7 @@ export default function ErrorPage() {
         <Button
           onClick={() => navigate("/")}
           size="md"
-          variant='outline'
+          variant="outline"
           colorScheme="orange"
           sx={{ mb: "20px" }}
         >

@@ -13,7 +13,7 @@ export const fetchUserLoginFx = createEffect(async (formData: IFormState) => {
 });
 
 fetchUserLoginFx.doneData.watch(({ data }) => {
-  localStorage.setItem("token", data?.token ?? '');
+  localStorage.setItem("token", data?.token ?? "");
   setIsLogin(true);
 });
 

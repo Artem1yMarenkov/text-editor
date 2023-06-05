@@ -6,4 +6,4 @@ export const userLogoutFx = createEffect(() => {
   localStorage.removeItem("token");
   setIsLogin(false);
   setUserLoginResponseStatus(401);
-})
+});

@@ -1,11 +1,5 @@
-import SignUpForm from '../../widgets/SignUpForm';
+import SignUpForm from "../../widgets/SignUpForm";
 
-const SignUpPage = () => {
-	return (
-		< >
-			<SignUpForm />
-		</>
-	);
-};
+const SignUpPage = () => <SignUpForm />;
 
 export default SignUpPage;

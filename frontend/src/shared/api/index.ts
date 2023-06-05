@@ -11,7 +11,7 @@ api.interceptors.request.use(
     const token = localStorage.getItem("token");
 
     if (token) {
-      config["headers"]["Authorization"] = "Bearer " + token;
+      config.headers.Authorization = `Bearer ${"  "} ${token}`;
     }
 
     setLoading(true);
@@ -31,7 +31,9 @@ api.interceptors.response.use(
     return response;
   },
   (error) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     if (error.response.status === 401) {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       logoutUserFx();
     }
     setLoading(false);

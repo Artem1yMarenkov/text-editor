@@ -17,9 +17,9 @@ import {
 import { useStore } from "effector-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
 import { ILoginFormState } from "../../entities/User/types";
 import { loginUserFx } from "../../entities/User";
-import { useNavigate } from "react-router";
 import { $isLogin } from "../../app/auth";
 
 const SignInForm = () => {
@@ -39,7 +39,7 @@ const SignInForm = () => {
   const handleshowChange = (): void => setShow(!show);
 
   useEffect(() => {
-    if (isLogin == true) {
+    if (isLogin === true) {
       navigate("/");
     }
   }, [isLogin, navigate]);
@@ -69,7 +69,7 @@ const SignInForm = () => {
               type="email"
               placeholder={"Email"}
               variant={"outline"}
-              isRequired={true}
+              isRequired
               {...register("email", { required: true })}
             />
             <InputGroup size={"lg"}>
@@ -77,7 +77,7 @@ const SignInForm = () => {
                 type={show ? "text" : "password"}
                 placeholder={"Пароль"}
                 variant={"outline"}
-                isRequired={true}
+                isRequired
                 {...register("password", { required: true })}
               />
               <InputRightElement>
@@ -86,7 +86,7 @@ const SignInForm = () => {
                   icon={show ? <ViewOffIcon /> : <ViewIcon />}
                   onClick={handleshowChange}
                   aria-label={"Search database"}
-                ></IconButton>
+                />
               </InputRightElement>
             </InputGroup>
             <Button
@@ -105,7 +105,7 @@ const SignInForm = () => {
             <Text>Нет аккаунта?</Text>
           </Stack>
           <Stack>
-            <Link color="blue.600" href="#">
+            <Link color="blue.600" href="/register">
               Зарегестрироваться
             </Link>
           </Stack>
