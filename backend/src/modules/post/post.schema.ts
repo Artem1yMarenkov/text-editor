@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 import { IPost } from "./types";
 
 const postSchema = new Schema<IPost>({
-	title: { type: "string", required: true },
+	title: { type: "string" },
 	content: { type: "string" },
 	authorId: { type: "string", required: true },
 	deleteAt: { type: "string" }
