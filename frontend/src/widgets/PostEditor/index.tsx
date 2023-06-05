@@ -3,10 +3,14 @@ import MDEditor from "@uiw/react-md-editor";
 import { useStore } from "effector-react";
 import { Button, Grid, GridItem, Input, Textarea } from "@chakra-ui/react";
 import { $post, changeContent } from "./post";
+import { ViewOffIcon, ViewIcon } from "@chakra-ui/icons";
+import { IconButton } from "@chakra-ui/react";
 
 export const PostEditorWidget = () => {
 	const [contentAreaHeight, setContentAreaHeight] = useState(0);
+	const [show, setShow] = useState(false);
 	const post = useStore($post);
+  const handleshowChange = (): void => setShow(!show);
 	
 	const handleHeaderChange = (event: ChangeEvent<HTMLInputElement>) => {
 		if (post) {
@@ -42,7 +46,7 @@ export const PostEditorWidget = () => {
 				placeholder="Header here..."
 				defaultValue="Untitled"
 			/>
-			<Grid templateColumns="1fr 1fr" gap="20px">
+			<Grid templateColumns="1fr 1fr 20px" gap="20px">
 				<GridItem>
 					<Textarea 
 						onChange={handleContentChange}
@@ -56,9 +60,19 @@ export const PostEditorWidget = () => {
 						height={contentAreaHeight}
 					/>
 				</GridItem>
-				<GridItem>
-					<MDEditor.Markdown source={String(post?.content || "")} />
-				</GridItem>
+				{show 
+				?			
+					<GridItem>
+						<MDEditor.Markdown source={String(post?.content || "")} />
+					</GridItem>
+				:
+				<div></div>
+				}
+				<IconButton
+              icon={show ? <ViewIcon /> : <ViewOffIcon />}
+              onClick={handleshowChange}
+              aria-label={"Search database"}
+        ></IconButton>
 			</Grid>
 		</>
 	);

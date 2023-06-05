@@ -39,7 +39,7 @@ export const Sidebar = () => {
       <Button variant="sidebar" height="45px" padding="8px" top="73.89%">
         <Flex gap="12px" alignItems="center">
           <Box>
-            <Link color="" href="#">
+            <Link color="" href="/settings">
               <Text mb="1px" fontSize="14px">
                 Настройки
               </Text>
