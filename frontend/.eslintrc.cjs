@@ -1,27 +1,46 @@
 module.exports = {
-	env: { browser: true, es2020: true },
-	extends: [
-		'eslint:recommended',
-		"plugin:import/recommended",
-		'plugin:@typescript-eslint/recommended',
-		'plugin:react-hooks/recommended',
-		'plugin:@typescript-eslint/recommended-requiring-type-checking',
-		'airbnb',
-		'airbnb-typescript',
-	],
-	parser: '@typescript-eslint/parser',
-	parserOptions: {
-		ecmaVersion: 'latest', sourceType: 'module', project: true,
-		tsconfigRootDir: './tsconfig.json'
-	},
-	plugins: ['react-refresh', '@typescript-eslint', "import"],
-	rules: {
-		'react-refresh/only-export-components': 'warn',
-		"@typescript-eslint/quotes": "off",
-		'@typescript-eslint/indent': 'off',
-		'no-tabs': 'off',
-		'no-trailing-spaces': 'off',
-		'linebreak-style': 'off',
-		'eol-last': 'off'
-	},
-}
+  env: { browser: true, es2020: true },
+  extends: [
+    "eslint:recommended",
+    "plugin:import/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "eslint-config-prettier",
+    "airbnb",
+    "airbnb-typescript",
+    "plugin:react/jsx-runtime",
+    "prettier",
+  ],
+  parser: "@typescript-eslint/parser",
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+      tsx: true,
+    },
+    ecmaVersion: "latest",
+    sourceType: "module",
+    project: true,
+    tsconfigRootDir: "./tsconfig.json",
+  },
+  plugins: ["react-refresh", "@typescript-eslint", "eslint-plugin-prettier"],
+  rules: {
+    "react-refresh/only-export-components": "warn",
+    "prettier/prettier": ["error", { endOfLine: "auto" }],
+    "react/prop-types": 0,
+    "react/jsx-filename-extension": [
+      1,
+      { extensions: [".js", ".jsx", ".ts", ".tsx"] },
+    ],
+    "@typescript-eslint/quotes": "off",
+    "@typescript-eslint/indent": "off",
+    "no-tabs": "off",
+    "no-trailing-spaces": "off",
+    "linebreak-style": "off",
+    "eol-last": "off",
+    "react/function-component-definition": "off",
+    "react/jsx-props-no-spreading": "off",
+    "@typescript-eslint/no-misused-promises": "off",
+    "import/prefer-default-export": "off",
+  },
+};
