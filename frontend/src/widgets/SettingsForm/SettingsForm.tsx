@@ -1,9 +1,15 @@
 import { ViewOffIcon, ViewIcon } from "@chakra-ui/icons";
-import { Box, Container, Heading } from "@chakra-ui/react";
+import {
+  Input,
+  InputGroup,
+  InputRightElement,
+  Box,
+  Container,
+  Heading,
+  Button,
+  IconButton,
+} from "@chakra-ui/react";
 import { useState } from "react";
-import { Input, InputGroup, InputRightElement } from "@chakra-ui/react";
-import { Button } from "@chakra-ui/react";
-import { IconButton } from "@chakra-ui/react";
 import { Sidebar } from "../../shared/ui/Sidebar";
 
 export const SettingsForm = () => {
@@ -21,14 +27,14 @@ export const SettingsForm = () => {
           type="login"
           placeholder="Логин"
           variant={"outline"}
-          isRequired={true}
+          isRequired
           mb="20px"
         />
         <Input
           type="email"
           placeholder="Адрес эл. почты"
           variant={"outline"}
-          isRequired={true}
+          isRequired
           mb="20px"
         />
         <InputGroup>
@@ -36,7 +42,7 @@ export const SettingsForm = () => {
             type={show ? "text" : "password"}
             placeholder="Пароль"
             variant={"outline"}
-            isRequired={true}
+            isRequired
             mb="20px"
           />
           <InputRightElement>
@@ -45,7 +51,7 @@ export const SettingsForm = () => {
               icon={show ? <ViewOffIcon /> : <ViewIcon />}
               onClick={handleshowChange}
               aria-label={"Search database"}
-            ></IconButton>
+            />
           </InputRightElement>
         </InputGroup>
 
