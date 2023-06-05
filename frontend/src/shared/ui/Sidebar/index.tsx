@@ -1,12 +1,17 @@
 import { Avatar } from "@chakra-ui/react";
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { Heading } from "@chakra-ui/react";
-import { userLogoutFx } from "../../../features/logout";
+import { Link } from "@chakra-ui/react";
+import { logoutUserFx } from "../../../entities/User";
+
 const links = ["Купить собаку", "Помыть молока"];
+
 export const Sidebar = () => {
+  
   const handleLogout = () => {
-    userLogoutFx();
+    logoutUserFx();
   };
+
   return (
     <Flex
       gap="10px"
@@ -31,16 +36,32 @@ export const Sidebar = () => {
             </Box>
           </Flex>
         </Button>
-        <Heading mb="1px" fontSize="18px">
-          Недавнее
-        </Heading>
-        {links.map((linkName) => (
-          <Button variant="sidebar" key={linkName}>
-            {linkName}
-          </Button>
-        ))}
+      <Button variant="sidebar" height="45px" padding="8px" top="73.89%">
+        <Flex gap="12px" alignItems="center">
+          <Box>
+            <Link color="" href="#">
+              <Text mb="1px" fontSize="14px">
+                Настройки
+              </Text>
+            </Link>
+          </Box>
+        </Flex>
+      </Button>
+        <Flex flexDirection="column" mt="20px">
+          <Heading mb="8px" fontSize="16px">
+            Недавнее
+          </Heading>
+          {links.map((linkName, index) => (
+            <Flex key={linkName} direction="column">
+              <Button variant="sidebar" size="sm">
+                {linkName}
+              </Button>
+              { index == links.length - 1 ? <></> : <hr />} 
+            </Flex>
+          ))}
+        </Flex>
       </Flex>
-      <Button onClick={handleLogout}>Выйти</Button>
+      <Button onClick={handleLogout} variant="sidebar" color="red" fontWeight="400">← Выйти</Button>
     </Flex>
   );
 };

@@ -1,22 +1,20 @@
-import { createEffect, createEvent, restore } from "effector";
-import { IFormState } from "./types";
-import { api } from "../../shared/api";
+import { createEvent, restore, sample } from "effector";
+import { registerUserFx } from "../../entities/User";
 
-export const setRegisterUserPending = createEvent<boolean>();
-export const $registerUserPending = restore(setRegisterUserPending, false);
+export const setRegisterStatus = createEvent<number | null>();
+export const $registerStatus = restore(setRegisterStatus, null);
 
-export const registerUserFx = createEffect(async (formData: IFormState) => {
-	setRegisterUserPending(true);
-	const response = await api.post("/user/register", formData);
-	return response.status;
+sample({
+	clock: registerUserFx.done,
+	fn: ({ result }) => result.status || null,
+	target: $registerStatus
 });
 
-registerUserFx.finally.watch(() => {
-	setRegisterUserPending(false);
-});
-
-
-export const setRegisterUserResponseState = createEvent<number | null>();
-export const $registerUserResponseState = restore(setRegisterUserResponseState, null)
-	.on(registerUserFx.doneData, (_, status) => status);
-
+// TODO: remove setTimeout
+$registerStatus.watch((state) => {
+	setTimeout(() => {
+		if (state !== null) {
+			setRegisterStatus(null);
+		}
+	});
+})

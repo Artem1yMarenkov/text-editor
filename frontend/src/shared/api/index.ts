@@ -1,6 +1,6 @@
 import axios from "axios";
 import { setLoading } from "./loading";
-import { userLogoutFx } from "../../features/logout";
+import { logoutUserFx } from "../../entities/User";
 
 export const api = axios.create({
   baseURL: "http://localhost/",
@@ -32,7 +32,7 @@ api.interceptors.response.use(
   },
   (error) => {
     if (error.response.status === 401) {
-      userLogoutFx();
+      logoutUserFx();
     }
     setLoading(false);
 
