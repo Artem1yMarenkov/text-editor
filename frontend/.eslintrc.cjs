@@ -20,8 +20,8 @@ module.exports = {
     },
     ecmaVersion: "latest",
     sourceType: "module",
-    project: true,
-    tsconfigRootDir: "./tsconfig.json",
+    project: "tsconfig.json",
+    tsconfigRootDir: __dirname,
   },
   plugins: ["react-refresh", "@typescript-eslint", "eslint-plugin-prettier"],
   rules: {
@@ -42,6 +42,9 @@ module.exports = {
     "react/jsx-props-no-spreading": "off",
     "@typescript-eslint/no-misused-promises": "off",
     "import/prefer-default-export": "off",
+    "react/jsx-curly-brace-presence": "off",
+    "import/no-extraneous-dependencies": "off",
+    "import/no-cycle": "off",
+    "no-param-reassign": "off",
   },
-};
 };
