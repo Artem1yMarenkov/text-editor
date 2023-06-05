@@ -46,5 +46,6 @@ module.exports = {
     "import/no-extraneous-dependencies": "off",
     "import/no-cycle": "off",
     "no-param-reassign": "off",
+    "no-console": "off",
   },
 };
