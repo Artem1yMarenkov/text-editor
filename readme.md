@@ -12,16 +12,18 @@ npm install
 npm run dev
 ```
 # Запуск бекенда
-Перед началом работы необходимо установить [Docker]("https://www.docker.com/products/docker-desktop/")
+1. Перед началом работы необходимо установить [Docker]("https://www.docker.com/products/docker-desktop/")
+2. После установки заходим в папку backend и запускаем пишем в консоли docker compose up (или docker-compose up, если первая команда не сработает)
 ```
 cd backend
+docker compose up # или docker-compose up
 ```
-После установки необходимо зайти в папку backend и запустить docker compose up (или docker-compose up, если первая команда не сработает)
+3. Далее необходимо создать .env файл в той же папке backend, а затем скопировать в него текст из закрепленного сообщения в ТГ чате (там будут доступы к почте, без них отправка писем работать не будет).
 ```
-cd backend
-docker compose up # or docker-compose up
+cd src
+touch .env
 ```
-Затем можно переходить на http://localhost. Там будет крутиться REST API.
+4. API будет работать по адресу http://localhost, а документация будет лежать на http://localhost/docs
 
 # Правила работы с гитом
 ## Commit flow

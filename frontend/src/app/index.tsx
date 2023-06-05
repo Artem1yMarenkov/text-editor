@@ -6,6 +6,20 @@ import { ChakraProvider } from "@chakra-ui/react";
 import SignInPage from "../pages/SignIn";
 import SignUpPage from "../pages/SignUp";
 import SettingsPage from "../pages/Settings";
+import { useStore } from "effector-react";
+import { $isLogin } from "./auth";
+
+const protectedRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <SignInPage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "register",
+    element: <SignUpPage />,
+  },
+]);
 
 const router = createBrowserRouter([
   {
@@ -27,9 +41,10 @@ const router = createBrowserRouter([
   },
 ]);
 function App() {
+  const isLogin = useStore($isLogin);
   return (
     <ChakraProvider theme={theme}>
-      <RouterProvider router={router} />
+      <RouterProvider router={isLogin ? router : protectedRouter} />
     </ChakraProvider>
   );
 }
