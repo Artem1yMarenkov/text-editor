@@ -1,6 +1,5 @@
 import cors from '@fastify/cors'
 import fastify from "fastify";
-import { dbInstance } from './database';
 import { userRouter } from './modules/user/user.route';
 import swagger from "@fastify/swagger";
 import swaggerUi from "@fastify/swagger-ui";
@@ -34,7 +33,6 @@ async function bootstrap() {
 	});
 	
 	app.register(userRouter, { prefix: "/user" });
-
 	
 	app.addHook("onRequest", (req, res, done) => {
 		req.headers['Content-Type'] = 'application/json';
@@ -47,7 +45,6 @@ async function bootstrap() {
 	})
 	
 	try {
-		console.log(dbInstance);
 		app.listen(config);
 	} catch {
 		console.error(`Failed to listen port ${config.port}`);
