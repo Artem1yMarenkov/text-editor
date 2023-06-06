@@ -8,6 +8,8 @@ import {
   InputGroup,
   Stack,
   Text,
+  VStack,
+  Link,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
@@ -88,6 +90,16 @@ const SignUpForm = () => {
             </Button>
           </Stack>
         </form>
+        <VStack sx={{ mt: "20px" }}>
+          <Stack>
+            <Text>Есть аккаунт?</Text>
+          </Stack>
+          <Stack>
+            <Link color="blue.600" href="/">
+              Войти
+            </Link>
+          </Stack>
+        </VStack>
       </Container>
     </Box>
   );
