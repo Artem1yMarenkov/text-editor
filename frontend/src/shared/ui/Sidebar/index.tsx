@@ -1,12 +1,4 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  Flex,
-  Text,
-  Heading,
-  Link,
-} from "@chakra-ui/react";
+import { Avatar, Box, Button, Flex, Text, Link } from "@chakra-ui/react";
 import { SettingsIcon, ArrowBackIcon } from "@chakra-ui/icons";
 import { logoutUserFx } from "../../../entities/User";
 import { SidebarRecent } from "./SideBarRecent";
