@@ -9,8 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { SettingsIcon, ArrowBackIcon } from "@chakra-ui/icons";
 import { logoutUserFx } from "../../../entities/User";
-
-const links = ["Купить собаку", "Помыть молока"];
+import { SidebarRecent } from "./SideBarRecent";
 
 export const Sidebar = () => {
   const handleLogout = async () => {
@@ -41,19 +40,7 @@ export const Sidebar = () => {
             </Box>
           </Flex>
         </Button>
-        <Flex flexDirection="column" mt="20px">
-          <Heading mb="8px" fontSize="16px">
-            Недавнее
-          </Heading>
-          {links.map((linkName, index) => (
-            <Flex key={linkName} direction="column">
-              <Button variant="sidebar" size="sm">
-                {linkName}
-              </Button>
-              {index === links.length - 1 && <hr />}
-            </Flex>
-          ))}
-        </Flex>
+        <SidebarRecent />
         <Link color="" href="/settings" textDecoration={"none"}>
           <Button variant="sidebar" height="45px" width="100%" padding="8px">
             <Flex gap="12px" alignItems="center">

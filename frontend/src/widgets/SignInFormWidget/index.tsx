@@ -47,8 +47,13 @@ const SignInForm = () => {
   return (
     <Box>
       <Container
-        sx={{ p: "30px" }}
-        border={"1px solid #000"}
+        sx={{
+          p: "30px",
+          mt: "40px",
+          boxShadow: "0 0 30px #cdcdcd",
+          borderRadius: "10px",
+          maxW: "md",
+        }}
         maxW="sm"
         color="black"
       >
@@ -106,7 +111,7 @@ const SignInForm = () => {
           </Stack>
           <Stack>
             <Link color="blue.600" href="/register">
-              Зарегестрироваться
+              Зарегистрироваться
             </Link>
           </Stack>
         </VStack>
