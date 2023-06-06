@@ -25,8 +25,8 @@ export const SidebarRecent = () => {
     e.preventDefault();
     setRecentLinks(
       recentLinks.map((c) => {
-        if (c.id === card.id) {
-          return { ...c, order: currentCard!.order };
+        if (c.id === card.id && currentCard) {
+          return { ...c, order: currentCard.order };
         }
         if (c.id === currentCard?.id) {
           return { ...c, order: card.order };
@@ -39,9 +39,11 @@ export const SidebarRecent = () => {
   const sortCards = (a: ICard, b: ICard) => {
     if (a.order > b.order) {
       return 1;
-    } else {
+    }
+    if (a.order < b.order) {
       return -1;
     }
+    return 0;
   };
 
   return (
