@@ -1,5 +1,5 @@
 import { IUser } from "./types";
-import { User } from "./user.schema";
+import { User } from "../../database/schemas/user.schema";
 
 export const createUser = async (login: string, email: string, password: string): Promise<IUser | null> => {
 	try {
@@ -13,6 +13,7 @@ export const createUser = async (login: string, email: string, password: string)
 
 export const loginUser = async (email: string, password: string): Promise<IUser | null> => {
 	try {
+		console.log(email, password)
 		const user = await User.findOne({ email, password });
 
 		if (user == null) {

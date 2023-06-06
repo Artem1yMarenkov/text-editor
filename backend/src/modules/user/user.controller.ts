@@ -6,6 +6,9 @@ import { sendEmail } from "../../utils/mail";
 import jwt from "jsonwebtoken";
 import { LoginUserRequestType, RegisterUserRequestType } from "./types";
 
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 export const registerUserHandler = async (
 	request: FastifyRequest<RegisterUserRequestType>, 
 	reply: FastifyReply
@@ -55,7 +58,7 @@ export const loginUserHandler = async (
 		email: user.email,
 	};
 	
-	const token = jwt.sign(payload, "secret", { expiresIn: "48h" });
+	const token = jwt.sign(payload, String(process.env?.SECRET_KEY), { expiresIn: "48h" });
 
 	return reply.code(200).send({
 		error: null,
