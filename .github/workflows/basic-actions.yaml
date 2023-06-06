@@ -1,0 +1,25 @@
+name: Basic pipeline
+run-name: ${{ github.actor }} is pushed another piece of shitty code
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [19.x]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: install modules
+        run: cd frontend && npm install
+      - name: build
+        run: cd frontend && npm run build
+      - name: lint
+        run: cd frontend && npm run lint

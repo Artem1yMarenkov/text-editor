@@ -1,11 +1,5 @@
-import SignInForm from '../../widgets/SIgnInForm/SignInForm';
+import SignInForm from "../../widgets/SignInFormWidget";
 
-const SignInPage = () => {
-	return (
-		<>
-			<SignInForm />
-		</>
-	);
-};
+const SignInPage = () => <SignInForm />;
 
 export default SignInPage;
