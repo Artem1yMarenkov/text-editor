@@ -1,16 +1,6 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  Flex,
-  Text,
-  Heading,
-  Link,
-} from "@chakra-ui/react";
+import { Avatar, Box, Button, Flex, Text, Link } from "@chakra-ui/react";
 import { logoutUserFx } from "../../../entities/User";
 import { SidebarRecent } from "./SideBarRecent";
-
-const links = ["Купить собаку", "Помыть молока"];
 
 export const Sidebar = () => {
   const handleLogout = async () => {
