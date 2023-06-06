@@ -8,6 +8,7 @@ import {
   Link,
 } from "@chakra-ui/react";
 import { logoutUserFx } from "../../../entities/User";
+import { SidebarRecent } from "./SideBarRecent";
 
 const links = ["Купить собаку", "Помыть молока"];
 
@@ -40,7 +41,8 @@ export const Sidebar = () => {
             </Box>
           </Flex>
         </Button>
-        <Button variant="sidebar" height="45px" padding="8px" top="73.89%">
+        <SidebarRecent />
+        <Button variant="sidebar" height="45px" padding="8px">
           <Flex gap="12px" alignItems="center">
             <Box>
               <Link color="" href="/settings">
@@ -51,19 +53,6 @@ export const Sidebar = () => {
             </Box>
           </Flex>
         </Button>
-        <Flex flexDirection="column" mt="20px">
-          <Heading mb="8px" fontSize="16px">
-            Недавнее
-          </Heading>
-          {links.map((linkName, index) => (
-            <Flex key={linkName} direction="column">
-              <Button variant="sidebar" size="sm">
-                {linkName}
-              </Button>
-              {index === links.length - 1 && <hr />}
-            </Flex>
-          ))}
-        </Flex>
       </Flex>
       <Button
         onClick={handleLogout}
