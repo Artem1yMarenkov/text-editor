@@ -1,4 +1,5 @@
 import { Avatar, Box, Button, Flex, Text, Link } from "@chakra-ui/react";
+import { SettingsIcon, ArrowBackIcon } from "@chakra-ui/icons";
 import { logoutUserFx } from "../../../entities/User";
 import { SidebarRecent } from "./SideBarRecent";
 
@@ -32,17 +33,18 @@ export const Sidebar = () => {
           </Flex>
         </Button>
         <SidebarRecent />
-        <Button variant="sidebar" height="45px" padding="8px">
-          <Flex gap="12px" alignItems="center">
-            <Box>
-              <Link color="" href="/settings">
+        <Link color="" href="/settings" textDecoration={"none"}>
+          <Button variant="sidebar" height="45px" width="100%" padding="8px">
+            <Flex gap="12px" alignItems="center">
+              <SettingsIcon borderRadius="8px" />
+              <Box>
                 <Text mb="1px" fontSize="14px">
                   Настройки
                 </Text>
-              </Link>
-            </Box>
-          </Flex>
-        </Button>
+              </Box>
+            </Flex>
+          </Button>
+        </Link>
       </Flex>
       <Button
         onClick={handleLogout}
@@ -50,7 +52,12 @@ export const Sidebar = () => {
         color="red"
         fontWeight="400"
       >
-        ← Выйти
+        <Flex gap="12px" alignItems="center">
+          <ArrowBackIcon borderRadius="8px" color="red" />
+          <Text mb="1px" fontSize="16px" color="red">
+            Выйти
+          </Text>
+        </Flex>
       </Button>
     </Flex>
   );
