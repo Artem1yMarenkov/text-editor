@@ -1,13 +1,14 @@
 import { FastifyPluginCallback } from "fastify";
 import { loginUserHandler, logoutUserHandler, registerUserHandler } from "./user.controller";
 import { LoginUserRequestType, RegisterUserRequestType } from "./types";
-import { DefaultResponse } from "../../utils/response";
+import { Response } from "../../utils/response";
 
 export const userRouter: FastifyPluginCallback = (app, opts, done) => {
 	app.post<RegisterUserRequestType>("/register", {
 		handler: registerUserHandler,
 		schema: {
 			description: "Регистрация пользователя",
+			tags: ["user"],
 			body: {
 				type: "object",
 				required: ["email", "login"],
@@ -17,9 +18,9 @@ export const userRouter: FastifyPluginCallback = (app, opts, done) => {
 				},
 			},
 			response: {
-				200: DefaultResponse({ statusCode: 200, data: "User registration successful completed", error: null }),
-				400: DefaultResponse({ statusCode: 400, data: null, error: "User registration failed" }),
-				500: DefaultResponse({ statusCode: 500, data: null, error: "Server Error" }),
+				200: new Response({ statusCode: 200, data: "User registration successful completed", error: null }, true).schema,
+				400: new Response({ statusCode: 400, data: null, error: "User registration failed" }, true).schema,
+				500: new Response({ statusCode: 500, data: null, error: "Server Error" }, true).schema,
 			},
 		}
 	});
@@ -28,6 +29,7 @@ export const userRouter: FastifyPluginCallback = (app, opts, done) => {
 		handler: loginUserHandler,
 		schema: {
 			description: "Авторизация пользователя по паролю и почте",
+			tags: ["user"],
 			body: {
 				type: "object",
 				required: ["email", "password"],
@@ -70,12 +72,17 @@ export const userRouter: FastifyPluginCallback = (app, opts, done) => {
 						} 
 					}
 				},
-				500: DefaultResponse({ statusCode: 500, data: null, error: "Server Error" })
+				500: new Response({ statusCode: 500, data: null, error: "Server Error" }, false).schema
 			}
 		}
 	});
 
-	app.post("/logout", logoutUserHandler)
+	app.post("/logout", {
+		handler: logoutUserHandler,
+		schema : {
+			tags: ["user"]
+		}
+	})
 
 	done();
 };
