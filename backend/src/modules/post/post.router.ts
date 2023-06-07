@@ -1,6 +1,6 @@
 import { FastifyPluginCallback } from "fastify"
 import { createPostHandler, deletePostHandler, getPostByIdHandler, getPostsByAuthorIdHandler, updatePostHandler } from "./post.controller";
-import { CreatePostRouterSchema, DeletePostRouteSchema, GetAllPostRouterSchema, GetOnePostRouterSchema, UpdatePostRouterSchema } from "./shcemas";
+import { CreatePostRouterSchema, DeletePostRouteSchema, GetAllPostRouterSchema, GetOnePostRouterSchema, UpdatePostRouterSchema } from "./post.schemas";
 
 export const postRouter: FastifyPluginCallback = async (app, opts, done) => {
 	app.post("/create", {
