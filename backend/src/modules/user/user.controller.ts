@@ -56,6 +56,7 @@ export const loginUserHandler = async (
 
 	const payload = {
 		email: user.email,
+		_id: user._id,
 	};
 	
 	const token = jwt.sign(payload, String(process.env?.SECRET_KEY), { expiresIn: "48h" });

@@ -10,8 +10,16 @@ import { userRouter } from './modules/user/user.route';
 import { postRouter } from './modules/post/post.router';
 import { authMiddleware } from './middlewares/auth';
 
-
 const app = fastify({ logger: true });
+
+declare module "fastify" {
+	interface FastifyRequest {
+		User: {
+			email: string,
+			_id: string
+		}
+	}
+}
 
 const config = {
 	port: 5500,

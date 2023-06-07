@@ -3,7 +3,7 @@ import { Post } from "../../database/schemas/post.schema";
 import { IPost } from "./types";
 
 export interface ICreatePostArgs {
-	authorId: string
+	authorId: string;
 	postData: {
 		title: string,
 		content: string,
@@ -19,72 +19,52 @@ export interface IUpdataPostArgs {
 }
 
 export const createPost = async ({ postData, authorId }: ICreatePostArgs): Promise<IPost | Error> => {
-	try {
-		const post = await Post.create({
-			title: postData.title,
-	        content: postData.content,
-			createAt: Date(),
-	        authorId,
-		});
+	const post = await Post.create({
+		title: postData.title,
+        content: postData.content,
+		createAt: Date(),
+        authorId,
+	});
 
-		return post.toJSON();
-	} catch (error) {
-		throw new ServerError("Post creation failed");
-	}
+	return post.toJSON();
 };
 
 export const getPostsByAuthorId = async (authorId: string): Promise<IPost[] | Error> => {
-	try {
-		const posts = await Post.find({ email: authorId });
+	const posts = await Post.find({ authorId, deleteAt: "null" });
 
-		if (posts.length == 0) {
-			throw new CustomError(`Posts with AuthorID "${authorId}" not found`, 400);
-		}
-
-		return posts;
-	} catch {
-		throw new ServerError("Posts getByAuthorId failed");
+	if (posts.length == 0) {
+		throw new CustomError(`Posts with AuthorID "${authorId}" cannot be found`, 400);
 	}
+
+	return posts;
 };
 
 export const getPostById = async (postId: string): Promise<IPost | Error> => {
-	try {
-		const post = await Post.findById(postId);
+	const post = await Post.findOne({ postId, deleteAt: "null" });
 
-		if (post === null) {
-			throw new CustomError(`Post with ID ${postId} not found`, 400); 
-		}
-
-		return post;
-	} catch {
-		throw new ServerError("Post getById failed");
+	if (post === null) {
+		throw new CustomError(`Post with ID ${postId} cannot be found`, 400); 
 	}
+
+	return post;
 };
 
 export const updatePost = async ({ data, postId }:  IUpdataPostArgs): Promise<IPost | Error> => {
-	try {
-		const post = await Post.findOneAndReplace({ _id: postId }, { data });
+	const post = await Post.findByIdAndUpdate(postId, { ...data });
 
-		if (post === null) {
-			throw new CustomError(`Post with ID ${postId} not found`, 400); 
-        }
+	if (post === null) {
+		throw new CustomError(`Post with ID ${postId} cannot be updated`, 400); 
+    }
 
-		return post;
-	} catch {
-		throw new ServerError("Post update failed");
-	}
+	return post;
 };
 
 export const deletePostById = async (postId: string): Promise<IPost | Error> => {
-	try {
-		const post = await Post.findByIdAndUpdate({ _id: postId, deletedAt: null }, { deletedAt: Date() });
+	const post = await Post.findOneAndUpdate({ _id: postId, deleteAt: "null" }, { deleteAt: Date() });
 
-		if (post === null) {
-			throw new CustomError(`Post with ID ${postId} not found`, 400);
-		}
-
-		return post;
-	} catch {
-		throw new ServerError("Post delete failed");
+	if (post === null) {
+		throw new CustomError(`Post with ID ${postId} cannot be deleted`, 400);
 	}
+
+	return post;
 };

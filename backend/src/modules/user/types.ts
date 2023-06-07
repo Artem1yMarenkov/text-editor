@@ -2,6 +2,7 @@ export type IUser = {
 	login: string;
 	email: string;
 	password: string;
+	_id: string;
 }
 
 export type RegisterUserRequestType = {

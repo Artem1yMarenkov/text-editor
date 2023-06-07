@@ -39,9 +39,8 @@ export const CreatePostRouterSchema: FastifySchema = {
 	tags: ["post"],
 	body: {
 		type: "object",
-		required: ["authorId", "postData"],
+		required: ["postData"],
 		properties: {
-			authorId: { type: "string" },
 			postData: { 
 				type: "object", 
 				required: ["title", "content"], 

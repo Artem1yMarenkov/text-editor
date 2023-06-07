@@ -1,21 +1,16 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { ICreatePostArgs, createPost, deletePostById, getPostById, getPostsByAuthorId, updatePost } from "./post.service";
 import { Response } from "../../utils/response";
-import { ServerError } from "../../errors";
-import jwt from "jsonwebtoken";
 
-interface ICreatePostHandlerBody {
-	Body: ICreatePostArgs
-}
 
 export const createPostHandler = async (
-	request: FastifyRequest<ICreatePostHandlerBody>,
+	request: FastifyRequest<{ Body: ICreatePostArgs }>,
 	reply: FastifyReply
 ) => {
-	const savedPost = await createPost({
-		authorId: request.body?.authorId,
-		postData: request.body?.postData
-	});
+	const authorId = String(request.User?._id);
+	const postData = request.body?.postData;
+
+	const savedPost = await createPost({ authorId, postData });
 
 	return reply.code(200).send(new Response({
 		statusCode: 200,
@@ -40,24 +35,14 @@ export const getPostByIdHandler = async (
 }
 
 export const getPostsByAuthorIdHandler = async (
-	request: FastifyRequest<{ Headers: { authorization: string } }>,
+	request: FastifyRequest,
 	reply: FastifyReply
 ) => {
-	let authorEmail: string = "orvysegor@gmail.com";
+	const authorId = request.User._id;
 
-	try {
-		const token = request.headers?.authorization?.split("Bearer ")[1] || null;
-		const tokenData = jwt.verify(
-			String(token), 
-			String(process.env.SECRET_KEY)
-		);
-
-		console.log(tokenData);
-	} catch {
-		throw new ServerError("token verification failed");
-	}
-
-	const posts = await getPostsByAuthorId(authorEmail);
+	console.log(authorId);
+	
+	const posts = await getPostsByAuthorId(authorId || "");
 
 	return reply.code(200).send(new Response({
         statusCode: 200,
