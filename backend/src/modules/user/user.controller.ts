@@ -1,5 +1,5 @@
-import { FastifyRequest, FastifyReply } from "fastify";
-import { createUser, loginUser } from "./user.service";
+import { FastifyRequest, FastifyReply, RouteHandler } from "fastify";
+import { createUser, loginUser, updateUser } from "./user.service";
 import generatePassword from "generate-password";
 import { renderRegisterMessage } from "../../utils/mail/templates/auth/Register";
 import { sendEmail } from "../../utils/mail";
@@ -7,6 +7,7 @@ import jwt from "jsonwebtoken";
 import { LoginUserRequestType, RegisterUserRequestType } from "./types";
 
 import * as dotenv from 'dotenv';
+import { Response } from "../../utils/response";
 dotenv.config();
 
 export const registerUserHandler = async (
@@ -68,4 +69,24 @@ export const loginUserHandler = async (
 	})
 };
 
-export const logoutUserHandler = async (request: FastifyRequest, reply: FastifyReply) => {};
+export const updateUserHandler = async (
+	request: FastifyRequest<{ Body: { password: string, email: string, login: string } }>, 
+	reply: FastifyReply
+) => {
+	const user = {
+		_id: String(request.User?._id),
+		...request.body
+	};
+
+	await updateUser(user);
+
+	return reply.code(200).send(new Response({
+		statusCode: 200,
+		error: null,
+		data: {
+			_id: user._id,
+			email: user.email,
+			login: user.login
+		}
+	}))
+}

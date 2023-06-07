@@ -1,37 +1,15 @@
 import { FastifySchema } from "fastify"
+import { ResponseSchema, StatusCodeSchema } from "../../shared/shemas"
 
-export const PostShchemaProperties = {
+const PostShchemaProperties = {
 	title: { type: "string" },
 	content: { type: "string" },
 	_id: { type: "string" }
 }
 
-export const PostSchema = {
+const PostSchema = {
 	type: "object",
 	properties: PostShchemaProperties
-}
-
-export const StatusCodeSchema = { 
-	type: "number"
-}
-
-export const ResponseSchema = {
-	400: {
-		type: "object",
-		properties: {
-			statusCode: { type: "number" },
-			error: { type: "string" },
-			data: { type: "object", default: null }
-		}
-	},
-	500: {
-		type: "object",
-		properties: {
-			statusCode: { type: "number" },
-			error: { type: "string" },
-			data: { type: "object", default: null }
-		}
-	}
 }
 
 export const CreatePostRouterSchema: FastifySchema = {

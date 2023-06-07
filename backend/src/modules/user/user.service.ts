@@ -1,5 +1,6 @@
 import { IUser } from "./types";
 import { User } from "../../database/schemas/user.schema";
+import { CustomError } from "../../errors";
 
 export const createUser = async (login: string, email: string, password: string): Promise<IUser | null> => {
 	try {
@@ -25,4 +26,18 @@ export const loginUser = async (email: string, password: string): Promise<IUser 
 
 		return null;
 	}
+};
+
+export const updateUser = async (data: IUser): Promise<IUser | Error> => {
+	const user = await User.findByIdAndUpdate(data._id, {
+		email: data.email,
+		login: data.login,
+		password: data.password
+	});
+
+	if (user == null) {
+		throw new CustomError(`Cannot update User with ID ${data._id}`, 400);
+	} 
+
+	return user;
 };
