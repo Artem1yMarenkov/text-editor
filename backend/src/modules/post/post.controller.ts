@@ -39,8 +39,6 @@ export const getPostsByAuthorIdHandler = async (
 	reply: FastifyReply
 ) => {
 	const authorId = request.User._id;
-
-	console.log(authorId);
 	
 	const posts = await getPostsByAuthorId(authorId || "");
 
