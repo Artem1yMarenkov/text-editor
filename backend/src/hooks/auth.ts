@@ -20,7 +20,7 @@ interface IVerifyTokenPayload {
 
 const allowedPaths = ['/register', '/login', '/docs'];
 
-export const authMiddleware = (
+export const authCheck = (
 	request: FastifyRequest<IAuthMiddlewareRequest>, 
 	reply: FastifyReply,
 	done: HookHandlerDoneFunction
