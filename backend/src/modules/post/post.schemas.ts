@@ -1,5 +1,5 @@
 import { FastifySchema } from "fastify"
-import { ResponseSchema, StatusCodeSchema } from "../../shared/shemas"
+import { ResponseSchema, StatusCodeSchema } from "../../shared/schemas"
 
 const PostShchemaProperties = {
 	title: { type: "string" },
