@@ -41,3 +41,13 @@ export const updateUser = async (data: IUser): Promise<IUser | Error> => {
 
 	return user;
 };
+
+export const getUserData = async (userId: string): Promise<IUser> => {
+	const user = await User.findById(userId);
+
+	if (user == null) {
+		throw new CustomError(`Cannot find User with ID ${userId}`, 400);
+	}
+
+	return user;
+};

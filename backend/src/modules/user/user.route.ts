@@ -1,8 +1,8 @@
 import { FastifyPluginCallback } from "fastify";
-import { loginUserHandler, registerUserHandler, updateUserHandler } from "./user.controller";
+import { getUserDataHandler, loginUserHandler, registerUserHandler, updateUserHandler } from "./user.controller";
 import { LoginUserRequestType, RegisterUserRequestType } from "./types";
 import { Response } from "../../utils/response";
-import { UpdateUserSchema } from "./user.schemas";
+import { GetUserDataSchema, UpdateUserSchema } from "./user.schemas";
 
 export const userRouter: FastifyPluginCallback = (app, opts, done) => {
 	app.post<RegisterUserRequestType>("/register", {
@@ -81,6 +81,11 @@ export const userRouter: FastifyPluginCallback = (app, opts, done) => {
 	app.post("/update", {
 		handler: updateUserHandler,
 		schema: UpdateUserSchema
+	})
+
+	app.get("/info", {
+		handler: getUserDataHandler,
+		schema: GetUserDataSchema
 	})
 
 	done();
