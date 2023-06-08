@@ -1,5 +1,5 @@
 import { FastifyRequest, FastifyReply, RouteHandler } from "fastify";
-import { createUser, loginUser, updateUser } from "./user.service";
+import { createUser, getUserData, loginUser, updateUser } from "./user.service";
 import generatePassword from "generate-password";
 import { renderRegisterMessage } from "../../utils/mail/templates/auth/Register";
 import { sendEmail } from "../../utils/mail";
@@ -89,4 +89,22 @@ export const updateUserHandler = async (
 			login: user.login
 		}
 	}))
+}
+
+export const getUserDataHandler = async (
+	request: FastifyRequest,
+	reply: FastifyReply
+) => {
+	const userId = String(request.User?._id);
+	const user = await getUserData(userId);
+
+	return reply.code(200).send(new Response({
+		statusCode: 200,
+		error: null,
+		data: {
+			_id: user._id,
+			email: user.email,
+			login: user.login
+		}
+	}));
 }

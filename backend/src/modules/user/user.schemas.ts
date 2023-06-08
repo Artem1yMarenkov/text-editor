@@ -32,3 +32,27 @@ export const UpdateUserSchema: FastifySchema = {
 		500: ResponseSchema["500"]
 	}
 }
+
+export const GetUserDataSchema: FastifySchema = {
+	description: "Получение данных о пользователе",
+	tags: ["user"],
+	response: {
+		200: {
+			type: "object",
+			properties: {
+				statusCode: StatusCodeSchema,
+				error: { type: "object", default: null },
+				data: {
+					type: "object",
+					properties: {
+						login: { type: "string" },
+						email: { type: "string" },
+						_id: { type: "string"}
+					}
+				}
+			}
+		},
+		400: ResponseSchema["400"],
+		500: ResponseSchema["500"]
+	}
+}
