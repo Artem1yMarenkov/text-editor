@@ -8,18 +8,7 @@ interface ICard {
   id: number;
 }
 
-const dragLeaveHandler = (event: React.DragEvent<HTMLDivElement>) => {
-  if (!(event.target instanceof HTMLElement)) return;
-  event.target.style.background = "transparent";
-};
-const dragOverHandler = (event: React.DragEvent<HTMLDivElement>) => {
-  event.preventDefault();
-  if (!(event.target instanceof HTMLElement)) return;
-  event.target.style.background = "gray";
-};
-
 export const SidebarRecent = () => {
-  // TODO: вынести драгндроп в отдельную сущность
   const allPosts = useStore($allPosts);
   const [currentCard, setCurrentCard] = useState<ICard | null>(null);
 
@@ -27,27 +16,32 @@ export const SidebarRecent = () => {
     if (!currentCard || !allPosts) return;
     const tempArr = [...allPosts];
     const oldCardIndex = allPosts.indexOf(currentCard);
-    const newCardIndex = allPosts.indexOf(card);
-    if (oldCardIndex === newCardIndex) return;
     tempArr.splice(oldCardIndex, 1);
+    const newCardIndex = allPosts.indexOf(card);
     tempArr.splice(newCardIndex, 0, currentCard);
+    if (oldCardIndex === newCardIndex) return;
+    console.log(tempArr);
     update(tempArr);
   };
 
-  const dragStartHandler = (card: ICard) => {
-    setCurrentCard(card);
+  const changeBackground = (
+    event: React.DragEvent<HTMLDivElement>,
+    color: string
+  ) => {
+    event.preventDefault();
+    if (!(event.target instanceof HTMLElement)) return;
+    event.target.style.background = color;
   };
 
   const dropHandler = (event: React.DragEvent<HTMLDivElement>, card: ICard) => {
     event.preventDefault();
-    if (!(event.target instanceof HTMLElement)) return;
-    event.target.style.background = "transparent";
+    changeBackground(event, "transparent");
     updatePosts(card);
   };
 
   useEffect(() => {
     getAllPostsFx();
-  });
+  }, []);
 
   return (
     <Flex flexDirection="column" mt="20px">
@@ -58,10 +52,10 @@ export const SidebarRecent = () => {
         allPosts.map((card, index) => (
           <Flex
             onDrop={(event) => dropHandler(event, card)}
-            onDragOver={(e) => dragOverHandler(e)}
-            onDragLeave={(e) => dragLeaveHandler(e)}
-            onDragEnd={(e) => dragLeaveHandler(e)}
-            onDragStart={() => dragStartHandler(card)}
+            onDragOver={(e) => changeBackground(e, "gray")}
+            onDragLeave={(e) => changeBackground(e, "transparent")}
+            onDragEnd={(e) => changeBackground(e, "transparent")}
+            onDragStart={() => setCurrentCard(card)}
             draggable
             key={card.name}
             direction="column"
