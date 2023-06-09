@@ -24,7 +24,7 @@ export const userRouter: FastifyPluginCallback = (app, opts, done) => {
 					type: "object",
 					properties: {
 						statusCode: { type: "number", default: 200 },
-						data: "User registration completed successfully",
+						data: { type: "string", default: "User registration completed" },
 						error: { type: "object", default: null}
 					},
 				},
