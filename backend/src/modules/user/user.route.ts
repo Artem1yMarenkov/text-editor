@@ -23,21 +23,17 @@ export const userRouter: FastifyPluginCallback = (app, opts, done) => {
 				200: {
 					type: "object",
 					properties: {
-						statusCode: StatusCodeSchema,
-						data: {
-							type: "object",
-							properties: {
-								login: { type: "string" },
-								email: { type: "string" },
-							}
-						}
+						statusCode: { type: "number", default: 200 },
+						data: "User registration completed successfully",
+						error: { type: "object", default: null}
 					},
 				},
 				400: {
 					type: "object",
 					properties: {
 						statusCode: StatusCodeSchema,
-						data: {
+						data: { type: "object", default: null },
+						error: {
 							type: "string",
 							default: "User registration failed"
 						}
@@ -47,12 +43,13 @@ export const userRouter: FastifyPluginCallback = (app, opts, done) => {
 					type: "object",
 					properties: {
 						statusCode: StatusCodeSchema,
-						data: {
+						data: { type: "object", default: null },
+						error: {
 							type: "string",
 							default: "Server Error"
 						}
 					},
-				},,
+				},
 			},
 		}
 	});
