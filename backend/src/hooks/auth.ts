@@ -26,6 +26,11 @@ export const authCheck = (
 	done: HookHandlerDoneFunction
 ) => {
 	const path = request.routerPath;
+	
+	if (typeof path == "undefined") {
+		throw new CustomError("Path does not exist", 403);
+	}
+
 	const token = request.headers?.authorization?.split("Bearer ")[1];
 
 	const isAllowedPath = allowedPaths.some(item => path.includes(item));
