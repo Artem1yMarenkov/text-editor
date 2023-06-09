@@ -34,6 +34,7 @@ module.exports = {
     ],
     "@typescript-eslint/quotes": "off",
     "@typescript-eslint/indent": "off",
+    "@typescript-eslint/no-floating-promises": "off",
     "no-tabs": "off",
     "no-trailing-spaces": "off",
     "linebreak-style": "off",
