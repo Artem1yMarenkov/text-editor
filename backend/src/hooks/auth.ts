@@ -36,28 +36,28 @@ export const authCheck = (
 		}
 
 		if (!token) {
-			throw new CustomError("Invalid Token", 403);
+			throw new CustomError("Invalid Token", 401);
 		}
 
 		const verify = jwt.verify(token, String(process.env?.SECRET_KEY)) as IVerifyTokenPayload | null;
 		
 		if (!verify) {
-			throw new CustomError("Invalid Token", 403);
+			throw new CustomError("Invalid Token", 401);
 		}
 
 		const { email, _id } = verify;
 		
 		if (!email || !_id) {
-			throw new CustomError("Invalid Token", 403);
+			throw new CustomError("Invalid Token", 401);
 		}
 
 		request.User = { email, _id }
 
 		done();
 	} catch (err) {
-		return reply.code(403).send({
+		return reply.code(401).send({
 			error: 'Unauthorized',
-			statusCode: 403,
+			statusCode: 401,
 			data: null
 		});
 	}

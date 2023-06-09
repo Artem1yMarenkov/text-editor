@@ -3,6 +3,7 @@ import { getUserDataHandler, loginUserHandler, registerUserHandler, updateUserHa
 import { LoginUserRequestType, RegisterUserRequestType } from "./types";
 import { Response } from "../../utils/response";
 import { GetUserDataSchema, UpdateUserSchema } from "./user.schemas";
+import { StatusCodeSchema } from "../../shared/schemas";
 
 export const userRouter: FastifyPluginCallback = (app, opts, done) => {
 	app.post<RegisterUserRequestType>("/register", {
@@ -19,9 +20,36 @@ export const userRouter: FastifyPluginCallback = (app, opts, done) => {
 				},
 			},
 			response: {
-				200: new Response({ statusCode: 200, data: "User registration successful completed", error: null }, true).schema,
-				400: new Response({ statusCode: 400, data: null, error: "User registration failed" }, true).schema,
-				500: new Response({ statusCode: 500, data: null, error: "Server Error" }, true).schema,
+				200: {
+					type: "object",
+					properties: {
+						statusCode: { type: "number", default: 200 },
+						data: { type: "string", default: "User registration completed" },
+						error: { type: "object", default: null}
+					},
+				},
+				400: {
+					type: "object",
+					properties: {
+						statusCode: StatusCodeSchema,
+						data: { type: "object", default: null },
+						error: {
+							type: "string",
+							default: "User registration failed"
+						}
+					},
+				},
+				500: {
+					type: "object",
+					properties: {
+						statusCode: StatusCodeSchema,
+						data: { type: "object", default: null },
+						error: {
+							type: "string",
+							default: "Server Error"
+						}
+					},
+				},
 			},
 		}
 	});
