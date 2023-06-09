@@ -6,10 +6,8 @@ export class ServerError extends Error {
 };
 
 export class CustomError extends Error {
-	statusCode: number;
 	constructor(message: string, statusCode: number, options?: object) {
         super("Error: " + message);
         this.name = 'CustomError';
-		this.statusCode = statusCode;
     }
 };

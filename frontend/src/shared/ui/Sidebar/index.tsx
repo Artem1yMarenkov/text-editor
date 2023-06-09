@@ -33,7 +33,7 @@ export const Sidebar = () => {
           </Flex>
         </Button>
         <SidebarRecent />
-         color="" href="/settings" textDecoration={"none"}>
+        <Link color="" href="/settings" textDecoration={"none"}>
           <Button variant="sidebar" height="45px" width="100%" padding="8px">
             <Flex gap="12px" alignItems="center">
               <SettingsIcon borderRadius="8px" />
