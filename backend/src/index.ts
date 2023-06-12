@@ -14,7 +14,14 @@ declare module "fastify" {
 	}
 }
 
-const app = fastify({ logger: true });
+const app = fastify({ 
+	logger: {
+		transport: {
+			target: "pino-pretty"
+		}	
+	},
+	disableRequestLogging: true
+});
 
 setPlugins(app);
 setHooks(app);
