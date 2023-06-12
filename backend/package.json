@@ -4,7 +4,6 @@
     "description": "",
     "scripts": {
         "dev": "npx nodemon ./src/index.ts --jsx --resolveJsonModule",
-        "prepare": "husky install",
         "prettier": "npx run prettier *.tsx",
         "test": "jest"
     },
@@ -31,6 +30,7 @@
         "mongoose": "^7.1.1",
         "nodemailer": "^6.9.2",
         "nodemon": "^2.0.20",
+        "pino-pretty": "^10.0.0",
         "pug": "^3.0.2",
         "react-dom": "^18.2.0",
         "ts-node": "^10.9.1",
