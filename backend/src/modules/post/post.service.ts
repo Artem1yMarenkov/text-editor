@@ -32,10 +32,6 @@ export const createPost = async ({ postData, authorId }: ICreatePostArgs): Promi
 export const getPostsByAuthorId = async (authorId: string): Promise<IPost[] | Error> => {
 	const posts = await Post.find({ authorId, deleteAt: "null" });
 
-	if (posts.length == 0) {
-		throw new CustomError(`Posts with AuthorID "${authorId}" cannot be found`, 400);
-	}
-
 	return posts;
 };
 
