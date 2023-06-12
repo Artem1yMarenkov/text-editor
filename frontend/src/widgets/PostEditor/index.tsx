@@ -22,7 +22,7 @@ export const PostEditorWidget = () => {
     if (post) {
       changeContent({
         ...post,
-        header: event.target.value,
+        title: event.target.value,
       });
     }
   };
@@ -48,7 +48,7 @@ export const PostEditorWidget = () => {
       </Button>
       <Input
         onChange={handleHeaderChange}
-        value={post?.header}
+        value={post?.title}
         sx={{ fontSize: "32px", mb: "16px", fontWeight: "500" }}
         variant="unstyled"
         placeholder="Header here..."

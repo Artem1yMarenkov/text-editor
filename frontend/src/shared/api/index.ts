@@ -33,7 +33,6 @@ api.interceptors.response.use(
   (error) => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     if (error.response.status === 401) {
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       logoutUserFx();
     }
     setLoading(false);

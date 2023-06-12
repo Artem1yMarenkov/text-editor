@@ -34,6 +34,7 @@ module.exports = {
     ],
     "@typescript-eslint/quotes": "off",
     "@typescript-eslint/indent": "off",
+    "@typescript-eslint/no-floating-promises": "off",
     "no-tabs": "off",
     "no-trailing-spaces": "off",
     "linebreak-style": "off",
@@ -47,5 +48,6 @@ module.exports = {
     "import/no-cycle": "off",
     "no-param-reassign": "off",
     "no-console": "off",
+    "no-underscore-dangle": "off",
   },
 };
