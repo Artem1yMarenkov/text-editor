@@ -15,15 +15,23 @@ export const SidebarRecent = () => {
     fetchPosts();
   }, [fetchPosts]);
 
+  const switchCards = (
+    tempArr: IPostContent[],
+    oldCard: IPostContent,
+    newCard: IPostContent
+  ) => {
+    const oldCardIndex = postList.indexOf(oldCard);
+    tempArr.splice(oldCardIndex, 1);
+    const newCardIndex = postList.indexOf(newCard);
+    tempArr.splice(newCardIndex, 0, oldCard);
+    return tempArr;
+  };
+
   const updatePosts = (card: IPostContent) => {
     if (!currentCard || !postList) return;
     const tempArr = [...postList];
-    const oldCardIndex = postList.indexOf(currentCard);
-    tempArr.splice(oldCardIndex, 1);
-    const newCardIndex = postList.indexOf(card);
-    tempArr.splice(newCardIndex, 0, currentCard);
-    if (oldCardIndex === newCardIndex) return;
-    update(tempArr);
+    const resArr = switchCards(tempArr, currentCard, card);
+    update(resArr);
   };
 
   const changeBackground = (
