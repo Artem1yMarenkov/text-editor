@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useEvent, useStore } from "effector-react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { IPostContent } from "../../../../widgets/PostEditor/types";
-import { $postList, deletePostFx, fetchPostsFx, update } from "./alPosts";
+import { $postList, deletePostFx, fetchPostsFx, update } from "./allPosts";
 import { changeContent } from "../../../../widgets/PostEditor/post";
 
 export const SidebarRecent = () => {

@@ -2,7 +2,7 @@ import { Avatar, Box, Button, Flex, Text, Link } from "@chakra-ui/react";
 import { SettingsIcon, ArrowBackIcon } from "@chakra-ui/icons";
 import { logoutUserFx } from "../../../entities/User";
 import { SidebarRecent } from "./SideBarRecent";
-import { createPostFx } from "./SideBarRecent/alPosts";
+import { createPostFx } from "./SideBarRecent/allPosts";
 
 export const Sidebar = () => {
   const handleLogout = async () => {
