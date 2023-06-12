@@ -1,10 +1,5 @@
 import { createEvent, createStore } from "effector";
-
-interface IPostContent {
-  uuid: string;
-  header: string;
-  content: string | null;
-}
+import { IPostContent } from "./types";
 
 export const changeContent = createEvent<IPostContent>();
 export const clearPost = createEvent();

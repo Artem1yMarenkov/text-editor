@@ -48,5 +48,7 @@ module.exports = {
     "import/no-cycle": "off",
     "no-param-reassign": "off",
     "no-console": "off",
+    "no-underscore-dangle": "off",
+    "@typescript-eslint/no-floating-promises": "off",
   },
 };
