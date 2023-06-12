@@ -4,6 +4,7 @@ import { dbInstance } from './database';
 import { setHooks } from './hooks';
 import { setPlugins } from "./plugins";
 import { setRoutes } from "./modules/routes";
+import { initLogFile } from "./plugins/errorHandler";
 
 declare module "fastify" {
 	interface FastifyRequest {
@@ -30,6 +31,7 @@ setRoutes(app);
 app.ready(() => {
 	dbInstance;
 	app.swagger();
+	initLogFile();
 })
 
 try {

@@ -22,6 +22,8 @@ const writeLog = async (log: ILog) => {
 	}
 };
 
+export const initLogFile = () => writeFile(__dirname + "/../../logs", "[]");
+
 export const errorHandler = async (
 	error: FastifyError, 
 	request: FastifyRequest, 

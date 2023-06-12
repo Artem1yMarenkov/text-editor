@@ -4,7 +4,6 @@
     "description": "",
     "scripts": {
         "dev": "npx nodemon ./src/index.ts --jsx --resolveJsonModule",
-        "prepare": "husky install",
         "prettier": "npx run prettier *.tsx",
         "test": "jest"
     },
