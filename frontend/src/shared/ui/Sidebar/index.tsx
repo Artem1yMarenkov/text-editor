@@ -62,4 +62,3 @@ export const Sidebar = () => {
     </Flex>
   );
 };
-
