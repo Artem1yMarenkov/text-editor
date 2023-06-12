@@ -7,23 +7,14 @@ interface IPost {
 }
 
 export const getAllPostsFx = createEffect(async () => {
-  await api.get("/post/all");
+  const data: IPost[] = await api.get("/post/all");
+  return data;
 });
 
-export const $allPosts = createStore<IPost[]>([
-  {
-    name: "43242",
-    id: 123312,
-  },
-  {
-    name: "43321242",
-    id: 123312,
-  },
-  {
-    name: "43243213212",
-    id: 123312,
-  },
-]);
+export const $allPosts = createStore<IPost[]>([]).on(
+  getAllPostsFx.doneData,
+  (_, posts) => posts
+);
 
 export const update = createEvent<IPost[]>();
 
