@@ -15,9 +15,9 @@ export const SettingsForm = () => {
   const [show, setShow] = useState(false);
   const handleshowChange = (): void => setShow(!show);
   return (
-    <Box display="flex">
+    <Box display="flex" gap="20px">
       <Sidebar />
-      <Box m="5" ml="20">
+      <Box mt="5">
         <form>
           <Heading mb="20px" fontSize="32px">
             Настройки
