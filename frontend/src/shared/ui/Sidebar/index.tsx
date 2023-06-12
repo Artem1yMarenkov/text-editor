@@ -15,9 +15,9 @@ export const Sidebar = () => {
       justifyContent="space-between"
       sx={{
         background: "#fafafa",
-        height: "100%",
+        height: "100vh",
         borderRadius: "0 10px 10px 0",
-        position: "fixed",
+        position: "relative",
         padding: "12px",
       }}
     >
