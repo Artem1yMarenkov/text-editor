@@ -2,6 +2,7 @@ import { Avatar, Box, Button, Flex, Text, Link } from "@chakra-ui/react";
 import { SettingsIcon, ArrowBackIcon } from "@chakra-ui/icons";
 import { logoutUserFx } from "../../../entities/User";
 import { SidebarRecent } from "./SideBarRecent";
+import { createPostFx } from "./SideBarRecent/alPosts";
 
 export const Sidebar = () => {
   const handleLogout = async () => {
@@ -32,6 +33,7 @@ export const Sidebar = () => {
             </Box>
           </Flex>
         </Button>
+        <Button onClick={() => createPostFx()}>Create post</Button>
         <SidebarRecent />
         <Link color="" href="/settings" textDecoration={"none"}>
           <Button variant="sidebar" height="45px" width="100%" padding="8px">
