@@ -5,7 +5,6 @@ import { DeleteIcon } from "@chakra-ui/icons";
 import { IPostContent } from "../../../../widgets/PostEditor/types";
 import { $postList, deletePostFx, fetchPostsFx, update } from "./alPosts";
 import { changeContent } from "../../../../widgets/PostEditor/post";
-import { getAllPostsFx } from "./allPosts";
 
 export const SidebarRecent = () => {
   const postList = useStore($postList);
@@ -46,7 +45,7 @@ export const SidebarRecent = () => {
   };
 
   useEffect(() => {
-    getAllPostsFx();
+    fetchPostsFx();
   }, []);
 
   return (
