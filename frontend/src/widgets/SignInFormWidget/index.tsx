@@ -11,13 +11,13 @@ import {
   Stack,
   Text,
   VStack,
-  Link,
   Container,
 } from "@chakra-ui/react";
 import { useStore } from "effector-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 import { ILoginFormState } from "../../entities/User/types";
 import { loginUserFx } from "../../entities/User";
 import { $isLogin } from "../../app/auth";
@@ -110,7 +110,7 @@ const SignInForm = () => {
             <Text>Нет аккаунта?</Text>
           </Stack>
           <Stack>
-            <Link color="blue.600" href="/register">
+            <Link to="/register" style={{ color: "#235a97" }}>
               Зарегистрироваться
             </Link>
           </Stack>

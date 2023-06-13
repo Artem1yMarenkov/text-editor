@@ -9,12 +9,12 @@ import {
   Stack,
   Text,
   VStack,
-  Link,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useStore } from "effector-react";
+import { Link } from "react-router-dom";
 import { registerUserFx } from "../../entities/User";
 import { IRegisterFormState } from "../../entities/User/types";
 import { $registerStatus } from "./store";
@@ -95,7 +95,7 @@ const SignUpForm = () => {
             <Text>Есть аккаунт?</Text>
           </Stack>
           <Stack>
-            <Link color="blue.600" href="/">
+            <Link to="/" style={{ color: "#235a97" }}>
               Войти
             </Link>
           </Stack>
