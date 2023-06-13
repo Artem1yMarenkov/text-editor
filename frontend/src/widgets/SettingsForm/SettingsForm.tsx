@@ -10,7 +10,7 @@ import {
   FormControl,
   FormHelperText,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useStore } from "effector-react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
@@ -22,11 +22,23 @@ export const SettingsForm = () => {
   const [show, setShow] = useState(false);
   const userInfo = useStore($userInfo);
   const updateUserInfoPending = useStore(updateUserInfoFx.pending);
+
   const {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<Partial<IUser>>();
+    setValue,
+  } = useForm<Partial<IUser>>({
+    defaultValues: {
+      email: userInfo?.email,
+      login: userInfo?.login,
+    },
+  });
+
+  useEffect(() => {
+    setValue("email", userInfo?.email);
+    setValue("login", userInfo?.login);
+  }, [userInfo, setValue]);
 
   const handleshowChange = (): void => setShow(!show);
 
