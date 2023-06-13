@@ -16,4 +16,11 @@ interface ILoginData {
   error: string | null;
 }
 
-export type { IRegisterFormState, ILoginFormState, ILoginData };
+interface IUser {
+  _id: string;
+  login: string;
+  email: string;
+  password: string;
+}
+
+export type { IRegisterFormState, ILoginFormState, ILoginData, IUser };

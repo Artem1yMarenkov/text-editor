@@ -1,10 +1,14 @@
-import { Avatar, Box, Button, Flex, Text, Link } from "@chakra-ui/react";
+import { Avatar, Box, Button, Flex, Text } from "@chakra-ui/react";
 import { SettingsIcon, ArrowBackIcon } from "@chakra-ui/icons";
-import { logoutUserFx } from "../../../entities/User";
+import { useStore } from "effector-react";
+import { Link } from "react-router-dom";
+import { $userInfo, logoutUserFx } from "../../../entities/User";
 import { SidebarRecent } from "./SideBarRecent";
 import { createPostFx } from "./SideBarRecent/allPosts";
 
 export const Sidebar = () => {
+  const userInfo = useStore($userInfo);
+
   const handleLogout = async () => {
     await logoutUserFx();
   };
@@ -28,14 +32,14 @@ export const Sidebar = () => {
             <Avatar name="t" size="sm" borderRadius="8px" />
             <Box>
               <Text mb="1px" fontSize="14px">
-                Somebody&apos;s Text Editor
+                {userInfo?.login || ""}&apos;s Text Editor
               </Text>
             </Box>
           </Flex>
         </Button>
         <Button onClick={() => createPostFx()}>Create post</Button>
         <SidebarRecent />
-        <Link color="" href="/settings" textDecoration={"none"}>
+        <Link color="" to="/settings">
           <Button variant="sidebar" height="45px" width="100%" padding="8px">
             <Flex gap="12px" alignItems="center">
               <SettingsIcon borderRadius="8px" />
