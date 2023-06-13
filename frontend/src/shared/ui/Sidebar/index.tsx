@@ -27,16 +27,18 @@ export const Sidebar = () => {
       }}
     >
       <Flex gap="10px" flexDirection="column">
-        <Button variant="sidebar" height="45px" padding="8px">
-          <Flex gap="12px" alignItems="center">
-            <Avatar name="t" size="sm" borderRadius="8px" />
-            <Box>
-              <Text mb="1px" fontSize="14px">
-                {userInfo?.login || ""}&apos;s Text Editor
-              </Text>
-            </Box>
-          </Flex>
-        </Button>
+        <Link to="/">
+          <Button variant="sidebar" height="45px" padding="8px">
+            <Flex gap="12px" alignItems="center">
+              <Avatar name="t" size="sm" borderRadius="8px" />
+              <Box>
+                <Text mb="1px" fontSize="14px">
+                  {userInfo?.login || ""}&apos;s Text Editor
+                </Text>
+              </Box>
+            </Flex>
+          </Button>
+        </Link>
         <Button onClick={() => createPostFx()}>Create post</Button>
         <SidebarRecent />
         <Link color="" to="/settings">

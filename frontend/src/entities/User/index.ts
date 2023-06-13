@@ -24,7 +24,15 @@ export const updateUserInfoFx = userDomain.createEffect<
   AxiosResponse<IServerResponse<IUser>>,
   AxiosError
 >(async (userInfo) => {
-  const response = await api.post("/user/update", { ...userInfo });
+  const user = Object.keys(userInfo).reduce((prev, curr: string) => {
+    const element = userInfo[curr as keyof IUser];
+    return {
+      ...prev,
+      [curr]: !element ? undefined : element,
+    };
+  }, {});
+
+  const response = await api.post("/user/update", { ...user });
   return response;
 });
 

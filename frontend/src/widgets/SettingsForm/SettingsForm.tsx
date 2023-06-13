@@ -7,6 +7,8 @@ import {
   Heading,
   Button,
   IconButton,
+  FormControl,
+  FormHelperText,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useStore } from "effector-react";
@@ -17,10 +19,14 @@ import { $userInfo, updateUserInfoFx } from "../../entities/User";
 import { IUser } from "../../entities/User/types";
 
 export const SettingsForm = () => {
-  const { handleSubmit, register } = useForm<Partial<IUser>>();
   const [show, setShow] = useState(false);
   const userInfo = useStore($userInfo);
   const updateUserInfoPending = useStore(updateUserInfoFx.pending);
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<Partial<IUser>>();
 
   const handleshowChange = (): void => setShow(!show);
 
@@ -33,26 +39,36 @@ export const SettingsForm = () => {
         </Link>
         <form onSubmit={handleSubmit(updateUserInfoFx)}>
           <Heading mb="20px" mt="10px">
-            Настройки
+            Настройки пользователя
           </Heading>
-          <Input
-            type="login"
-            placeholder="Логин"
-            variant={"outline"}
-            isRequired
-            mb="20px"
-            defaultValue={userInfo?.login}
-            {...register("login", { required: true })}
-          />
-          <Input
-            type="email"
-            placeholder="Адрес эл. почты"
-            variant={"outline"}
-            isRequired
-            mb="20px"
-            defaultValue={userInfo?.email}
-            {...register("email", { required: true })}
-          />
+          <FormControl isInvalid={!!errors.login} mb="10px">
+            <Input
+              type="login"
+              placeholder="Логин"
+              variant="outline"
+              defaultValue={userInfo?.login}
+              {...register("login", { required: true })}
+            />
+            {!!errors.login && (
+              <FormHelperText color="red">
+                Логин обязателен для заполнения
+              </FormHelperText>
+            )}
+          </FormControl>
+          <FormControl isInvalid={!!errors.email} mb="10px">
+            <Input
+              type="email"
+              placeholder="Адрес эл. почты"
+              variant="outline"
+              defaultValue={userInfo?.email}
+              {...register("email", { required: true })}
+            />
+            {!!errors.email && (
+              <FormHelperText color="red">
+                Адрес эл. почты обязателен для заполнения
+              </FormHelperText>
+            )}
+          </FormControl>
           <InputGroup>
             <Input
               type={show ? "text" : "password"}
@@ -63,14 +79,13 @@ export const SettingsForm = () => {
             />
             <InputRightElement>
               <IconButton
-                background={"Inner alignment"}
+                background="transparent"
                 icon={show ? <ViewOffIcon /> : <ViewIcon />}
                 onClick={handleshowChange}
-                aria-label={"Search database"}
+                aria-label="Show/hide password"
               />
             </InputRightElement>
           </InputGroup>
-
           <Button
             colorScheme="#303030;"
             isLoading={updateUserInfoPending}
