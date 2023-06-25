@@ -4,6 +4,7 @@ import { dbInstance } from './database';
 import { setHooks } from './hooks';
 import { setPlugins } from "./plugins";
 import { setRoutes } from "./modules/routes";
+import { initLogFile } from "./plugins/errorHandler";
 
 declare module "fastify" {
 	interface FastifyRequest {
@@ -14,7 +15,14 @@ declare module "fastify" {
 	}
 }
 
-const app = fastify({ logger: true });
+const app = fastify({ 
+	logger: {
+		transport: {
+			target: "pino-pretty"
+		}	
+	},
+	disableRequestLogging: true
+});
 
 setPlugins(app);
 setHooks(app);
@@ -23,6 +31,7 @@ setRoutes(app);
 app.ready(() => {
 	dbInstance;
 	app.swagger();
+	initLogFile();
 })
 
 try {
