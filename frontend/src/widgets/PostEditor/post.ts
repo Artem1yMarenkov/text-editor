@@ -4,6 +4,6 @@ import { IPostContent } from "./types";
 export const changeContent = createEvent<IPostContent>();
 export const clearPost = createEvent();
 
-export const $post = createStore<IPostContent | null>({} as IPostContent)
+export const $post = createStore<IPostContent>({} as IPostContent)
   .on(changeContent, (_, payload) => payload)
-  .on(clearPost, () => null);
+  .on(clearPost, () => {});

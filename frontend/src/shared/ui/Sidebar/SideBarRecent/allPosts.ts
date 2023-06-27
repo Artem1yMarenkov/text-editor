@@ -9,7 +9,9 @@ export const fetchPostsFx = createEffect(async () => {
 
 export const savePostChangesFx = createEffect(async (post: IPostContent) => {
   const data = await api
-    .post(`/post/update/${post._id}`, { post })
+    .post(`/post/update/${post._id}`, {
+      data: { title: post.title, content: post.content },
+    })
     .then(() => fetchPostsFx());
   return data;
 });
