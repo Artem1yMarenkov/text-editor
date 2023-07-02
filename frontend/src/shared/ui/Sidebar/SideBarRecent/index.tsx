@@ -9,7 +9,7 @@ import { changeContent } from "../../../../widgets/PostEditor/post";
 export const SidebarRecent = () => {
   const postList = useStore($postList);
   const fetchPosts = useEvent(fetchPostsFx);
-  const loading = useStore(fetchPostsFx.pending);
+  // const loading = useStore(fetchPostsFx.pending);
   const [currentCard, setCurrentCard] = useState<IPostContent | null>(null);
   useEffect(() => {
     fetchPosts();
@@ -61,38 +61,43 @@ export const SidebarRecent = () => {
       <Heading mb="8px" fontSize="16px">
         Недавнее
       </Heading>
-      {loading ? (
-        <div>loading</div>
-      ) : (
-        <div>
-          {postList?.map((card, index) => (
-            <Flex
-              draggable
-              onDrop={(event) => dropHandler(event, card)}
-              onDragOver={(e) => changeBackground(e, "gray")}
-              onDragLeave={(e) => changeBackground(e, "transparent")}
-              onDragEnd={(e) => changeBackground(e, "transparent")}
-              onDragStart={() => setCurrentCard(card)}
-              onClick={() => changeContent(card)}
-              key={card._id}
-              direction="column"
+
+      <div>
+        {postList?.map((card, index) => (
+          <Flex
+            draggable
+            onDrop={(event) => dropHandler(event, card)}
+            onDragOver={(e) => changeBackground(e, "gray")}
+            onDragLeave={(e) => changeBackground(e, "transparent")}
+            onDragEnd={(e) => changeBackground(e, "transparent")}
+            onDragStart={() => setCurrentCard(card)}
+            onClick={() => changeContent(card)}
+            key={card._id}
+            direction="column"
+          >
+            <Button
+              variant="sidebar"
+              size="sm"
+              justifyContent="space-between"
+              display="flow-root"
             >
-              <Button variant="sidebar" size="sm">
-                <Flex justifyContent="space-between">
-                  <Box>
-                    <Text>{card.title}</Text>
-                  </Box>
-                  <DeleteIcon
-                    style={{ position: "absolute", right: "1em" }}
-                    onClick={() => deletePostFx(card._id.toString())}
-                  />
-                </Flex>
-              </Button>
-              {index === postList.length - 1 && <hr />}
-            </Flex>
-          ))}
-        </div>
-      )}
+              <Flex justifyContent="space-between">
+                <Box overflow="hidden">
+                  <Text>{card.title}</Text>
+                </Box>
+                <DeleteIcon
+                  marginLeft="1em"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    deletePostFx(card._id.toString());
+                  }}
+                />
+              </Flex>
+            </Button>
+            {index === postList.length - 1 && <hr />}
+          </Flex>
+        ))}
+      </div>
     </Flex>
   );
 };

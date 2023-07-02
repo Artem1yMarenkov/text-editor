@@ -1,4 +1,4 @@
-import { ChangeEvent, KeyboardEvent, useState } from "react";
+import { ChangeEvent, KeyboardEvent, useState, useEffect } from "react";
 import MDEditor from "@uiw/react-md-editor";
 import { useStore } from "effector-react";
 import {
@@ -11,6 +11,23 @@ import {
 } from "@chakra-ui/react";
 import { ViewOffIcon, ViewIcon } from "@chakra-ui/icons";
 import { $post, changeContent } from "./post";
+import { savePostChangesFx } from "../../shared/ui/Sidebar/SideBarRecent/allPosts";
+import { IPostContent } from "./types";
+
+function debounce() {
+  let timer: null | ReturnType<typeof setTimeout> = null;
+
+  return (args: IPostContent) => {
+    if (timer) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(() => {
+      savePostChangesFx(args);
+    }, 2000);
+  };
+}
+
+const savePostChanges = debounce();
 
 export const PostEditorWidget = () => {
   const [contentAreaHeight, setContentAreaHeight] = useState(0);
@@ -35,6 +52,10 @@ export const PostEditorWidget = () => {
       });
     }
   };
+
+  useEffect(() => {
+    savePostChanges(post);
+  }, [post]);
 
   const resizeTextarea = ({ target }: KeyboardEvent<HTMLTextAreaElement>) => {
     const element = target as HTMLTextAreaElement;
@@ -61,7 +82,7 @@ export const PostEditorWidget = () => {
             onKeyUp={resizeTextarea}
             value={post?.content || ""}
             placeholder="Content here..."
-            minHeight="90vh"
+            minHeight="84.5vh"
             variant="unstyled"
             resize="none"
             overflow="hidden"
