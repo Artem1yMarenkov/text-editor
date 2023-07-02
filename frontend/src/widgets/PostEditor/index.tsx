@@ -82,7 +82,7 @@ export const PostEditorWidget = () => {
             onKeyUp={resizeTextarea}
             value={post?.content || ""}
             placeholder="Content here..."
-            minHeight="90vh"
+            minHeight="84.5vh"
             variant="unstyled"
             resize="none"
             overflow="hidden"

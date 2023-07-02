@@ -19,6 +19,7 @@ export const Sidebar = () => {
       flexDirection="column"
       justifyContent="space-between"
       sx={{
+        width: "20vw",
         background: "#fafafa",
         height: "100vh",
         borderRadius: "0 10px 10px 0",
